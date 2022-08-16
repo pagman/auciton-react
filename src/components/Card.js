@@ -5,6 +5,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import CardMedia from '@mui/material/CardMedia';
 import "../App.css"
 
 const bull = (
@@ -18,6 +19,12 @@ export default function BasicCard(props) {
   return (
     <div className = 'myCard'>
     <Card sx={{ minWidth: 275 }}>
+    <CardMedia
+        component="img"
+        height="160"
+        image='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+        alt="green iguana"
+      />
       <CardContent>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {props.header}
