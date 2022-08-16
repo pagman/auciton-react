@@ -1,3 +1,4 @@
+import { CenterFocusStrong } from "@mui/icons-material";
 import BasicCard from "../components/Card";
 import SearchAppBar from "../components/navbar";
 
@@ -24,8 +25,8 @@ const DUMMY_DATA = [
 
 function HomePage() {
   return (
+    <center>
     <div>
-      <SearchAppBar />
       <div>Home page</div>
       <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
       <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
@@ -33,7 +34,11 @@ function HomePage() {
       <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
       <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
       <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
+      <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
+      <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
+      <BasicCard header='test' title='test' subtitle = 'subtitle' text='a paragraph or sth like that tha is big'/>
    </div>
+   </center>
   );
 }
 
