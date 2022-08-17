@@ -22,7 +22,7 @@ export default function BasicCard(props) {
     <CardMedia
         component="img"
         height="160"
-        image='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+        image={props.image}
         alt="green iguana"
       />
       <CardContent>
