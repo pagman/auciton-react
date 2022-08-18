@@ -62,7 +62,9 @@ export default function SearchAppBar() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            AUCTION SITE
+            <Link style={{ color: "white" ,textDecoration: "none" }} to="/">
+              AUCTION SITE
+            </Link>
           </Typography>
           <Link style={{ textDecoration: "none" }} to="/">
             <Button
@@ -95,6 +97,17 @@ export default function SearchAppBar() {
               }}
             >
               Sign in
+            </Button>
+          </Link>
+          <Link style={{ textDecoration: "none" }} to="/product">
+            <Button
+              variant="text"
+              style={{
+                color: "white",
+                fontSize: "15px",
+              }}
+            >
+              Product
             </Button>
           </Link>
           <Search>
