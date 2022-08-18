@@ -1,10 +1,102 @@
-import { CenterFocusStrong } from "@mui/icons-material";
+import * as React from "react";
 import BasicCard from "../components/Card";
-import SearchAppBar from "../components/navbar";
-
+import TablePagination from '@mui/material/TablePagination';
 const DUMMY_DATA = [
   {
     key:1,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },{
+    key:2,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:3,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:4,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:5,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },{
+    key:2,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:3,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:4,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:5,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },{
+    key:2,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:3,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:4,
+    header: "m1",
+    title: "test",
+    subtitle: "Meetupstreet 5, 12345 Meetup City",
+    text: "a paragraph or sth like that tha is big",
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
+  },
+  {
+    key:5,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -45,11 +137,23 @@ const DUMMY_DATA = [
 ];
 
 function HomePage() {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+
   return (
     <center>
       <div>
         <div>Home page</div>
-          {DUMMY_DATA.map((item) => (
+          {DUMMY_DATA.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard
               key={item.key}
               header={item.header}
@@ -57,9 +161,17 @@ function HomePage() {
               title={item.title}
               subtitle={item.subtitle}
               text={item.text}
-            />
+            />            
           ))}
       </div>
+      <TablePagination
+      component="div"
+      count={DUMMY_DATA.length}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    />
     </center>
   );
 }
