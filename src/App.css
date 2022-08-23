@@ -39,3 +39,8 @@ h2 {
   width: 500px;
   height: 500px;
 }
+
+.floatingDivLeft{
+    width: 500px;
+    float:left; /* add this */
+}
