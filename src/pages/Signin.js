@@ -9,18 +9,14 @@ const defaultValues = {
   gender: "",
   os: "",
   favoriteNumber: 0,
+  username:'',
+  password:''
 };
 
 function SigninPage() {
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value,
-    });
-  };
-  const handleSliderChange = (name) => (e, value) => {
     setFormValues({
       ...formValues,
       [name]: value,
@@ -47,28 +43,27 @@ function SigninPage() {
           <div>
             <TextField
               required
-              id="outlined-required"
+              id="outli4561ned-required"
               name="name"
               type="text"
-              value={formValues.name}
               onChange={handleInputChange}
               label="Required"
               defaultValue="Hello World"
             />
             <TextField
               disabled
-              id="outlined-disabled"
+              id="outlined-56disabled"
               label="Disabled"
               defaultValue="Hello World"
             />
             <TextField
-              id="outlined-password-input"
+              id="outlined-sdffhpassword-input"
               label="Password"
               type="password"
               autoComplete="current-password"
             />
             <TextField
-              id="outlined-read-only-input"
+              id="outlined-sdfsdfg-only-input"
               label="Read Only"
               defaultValue="Hello World"
               InputProps={{
@@ -76,7 +71,7 @@ function SigninPage() {
               }}
             />
             <TextField
-              id="outlined-number"
+              id="asd-number"
               label="Number"
               type="number"
               InputLabelProps={{
@@ -84,12 +79,12 @@ function SigninPage() {
               }}
             />
             <TextField
-              id="outlined-search"
+              id="outlinedgdfssdf-search"
               label="Search field"
               type="search"
             />
             <TextField
-              id="outlined-helperText"
+              id="outlined-helperTasdasdext"
               label="Helper text"
               defaultValue="Default Value"
               helperText="Some important text"
@@ -114,52 +109,20 @@ function SigninPage() {
           <div>
             <TextField
               required
-              id="outlined-required"
-              name="age"
+              id="username"
+              name="username"
               type="text"
-              value={formValues.age}
               onChange={handleInputChange}
-              label="Required"
+              label="Username"
               defaultValue="Hello World"
             />
             <TextField
-              disabled
-              id="outlined-disabled"
-              label="Disabled"
-              defaultValue="Hello World"
-            />
-            <TextField
-              id="outlined-password-input"
+              id="password"
+              name='password'
+              onChange={handleInputChange}
               label="Password"
               type="password"
               autoComplete="current-password"
-            />
-            <TextField
-              id="outlined-read-only-input"
-              label="Read Only"
-              defaultValue="Hello World"
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              id="outlined-number"
-              label="Number"
-              type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-            <TextField
-              id="outlined-search"
-              label="Search field"
-              type="search"
-            />
-            <TextField
-              id="outlined-helperText"
-              label="Helper text"
-              defaultValue="Default Value"
-              helperText="Some important text"
             />
           </div>
 
