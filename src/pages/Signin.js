@@ -122,7 +122,7 @@ function SigninPage() {
             />
           </div>
           <div className="center">
-            <Button variant="outlined" type="submit">
+            <Button disabled={false} variant="outlined" type="submit">
               Submit
             </Button>
           </div>
