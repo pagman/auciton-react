@@ -41,7 +41,7 @@ const DUMMY_DATA = [
     text: "a paragraph or sth like that tha is big",
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },{
-    key:2,
+    key:6,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -49,7 +49,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:3,
+    key:7,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -57,7 +57,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:4,
+    key:8,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -65,14 +65,14 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:5,
+    key:9,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
     text: "a paragraph or sth like that tha is big",
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },{
-    key:2,
+    key:10,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -80,7 +80,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:3,
+    key:11,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -88,7 +88,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:4,
+    key:12,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -96,14 +96,14 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:5,
+    key:13,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
     text: "a paragraph or sth like that tha is big",
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },{
-    key:2,
+    key:14,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -111,7 +111,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:3,
+    key:15,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -119,7 +119,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:4,
+    key:16,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",
@@ -127,7 +127,7 @@ const DUMMY_DATA = [
     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
   },
   {
-    key:5,
+    key:17,
     header: "m1",
     title: "test",
     subtitle: "Meetupstreet 5, 12345 Meetup City",

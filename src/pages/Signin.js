@@ -1,16 +1,20 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
 const defaultValues = {
   name: "",
-  age: 0,
-  gender: "",
-  os: "",
-  favoriteNumber: 0,
-  username:'',
-  password:''
+  lastName: 0,
+  email: "",
+  newUsername: "",
+  newPassword: "",
+  newRepeatPassword: "",
+  phone: "",
+  address: "",
+  vat: "",
+  username: "",
+  password: "",
 };
 
 function SigninPage() {
@@ -32,7 +36,7 @@ function SigninPage() {
       <div className="floatingDivLeft">
         <h1 style={{ textAlign: "center" }}>Sign up</h1>
         <Box
-        onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           component="form"
           sx={{
             "& .MuiTextField-root": { m: 1, width: "25ch" },
@@ -43,62 +47,91 @@ function SigninPage() {
           <div>
             <TextField
               required
-              id="outli4561ned-required"
+              id="name"
               name="name"
               type="text"
               onChange={handleInputChange}
-              label="Required"
-              defaultValue="Hello World"
+              label="Name"
             />
             <TextField
-              disabled
-              id="outlined-56disabled"
-              label="Disabled"
-              defaultValue="Hello World"
+              required
+              id="lastName"
+              name="lastName"
+              type="text"
+              onChange={handleInputChange}
+              label="Last name"
             />
             <TextField
-              id="outlined-sdffhpassword-input"
+              required
+              id="email"
+              name="email"
+              type="text"
+              onChange={handleInputChange}
+              label="Email"
+            />
+            <TextField
+              required
+              id="newUsername"
+              name="newUsername"
+              type="text"
+              onChange={handleInputChange}
+              label="Username"
+            />
+            <TextField
+              required
+              id="newPassword"
+              name="newPassword"
+              onChange={handleInputChange}
               label="Password"
               type="password"
               autoComplete="current-password"
             />
             <TextField
-              id="outlined-sdfsdfg-only-input"
-              label="Read Only"
-              defaultValue="Hello World"
-              InputProps={{
-                readOnly: true,
-              }}
+              required
+              id="newRepeatPassword"
+              name="newRepeatPassword"
+              onChange={handleInputChange}
+              label="Repeat password"
+              type="password"
+              autoComplete="current-password"
             />
             <TextField
-              id="asd-number"
-              label="Number"
+              required
+              id="phone"
+              name="phone"
               type="number"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              onChange={handleInputChange}
+              label="Phone"
+            />
+            
+            <TextField
+              required
+              id="address"
+              name="address"
+              type="text"
+              onChange={handleInputChange}
+              label="Adress"
             />
             <TextField
-              id="outlinedgdfssdf-search"
-              label="Search field"
-              type="search"
-            />
-            <TextField
-              id="outlined-helperTasdasdext"
-              label="Helper text"
-              defaultValue="Default Value"
-              helperText="Some important text"
+              required
+              id="vat"
+              name="vat"
+              type="text"
+              onChange={handleInputChange}
+              label="VAT"
             />
           </div>
           <div className="center">
-            <Button variant="outlined" type="submit" >Submit</Button>
+            <Button variant="outlined" type="submit">
+              Submit
+            </Button>
           </div>
         </Box>
       </div>
       <div className="floatingDivLeft">
         <h1 style={{ textAlign: "center" }}>Log in</h1>
         <Box
-        onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           component="form"
           sx={{
             "& .MuiTextField-root": { m: 1, width: "25ch" },
@@ -114,20 +147,21 @@ function SigninPage() {
               type="text"
               onChange={handleInputChange}
               label="Username"
-              defaultValue="Hello World"
             />
             <TextField
+              required
               id="password"
-              name='password'
+              name="password"
               onChange={handleInputChange}
               label="Password"
               type="password"
               autoComplete="current-password"
             />
           </div>
-
           <div className="center">
-            <Button variant="outlined" type="submit">Log in</Button>
+            <Button variant="outlined" type="submit">
+              Log in
+            </Button>
           </div>
         </Box>
       </div>
