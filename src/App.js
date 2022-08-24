@@ -7,6 +7,7 @@ import SearchAppBar from "./components/navbar";
 import ProductPage from "./pages/productPage";
 import AllUsersPage from "./pages/AllUsers";
 import Chat from "./pages/Chat";
+import UserDetailsPage from "./pages/UserDetails";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/userdetails" element={<UserDetailsPage />} />
       </Routes>
     </div>
   );
