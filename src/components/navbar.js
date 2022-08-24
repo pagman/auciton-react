@@ -121,6 +121,17 @@ export default function SearchAppBar() {
               AllUsers
             </Button>
           </Link>
+          <Link style={{ textDecoration: "none" }} to="/chat">
+            <Button
+              variant="text"
+              style={{
+                color: "white",
+                fontSize: "15px",
+              }}
+            >
+              Chat
+            </Button>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

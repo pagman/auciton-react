@@ -6,6 +6,7 @@ import AccountPage from "./pages/Account";
 import SearchAppBar from "./components/navbar";
 import ProductPage from "./pages/productPage";
 import AllUsersPage from "./pages/AllUsers";
+import Chat from "./pages/Chat";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
+        <Route path="/chat" element={<Chat />} />
       </Routes>
     </div>
   );
