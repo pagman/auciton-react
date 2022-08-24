@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardMedia from '@mui/material/CardMedia';
 import "../App.css"
+import { Link } from "react-router-dom";
 
 
 
@@ -36,7 +37,9 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
+      <Link style={{ textDecoration: "none" }} to="/product">
         <Button size="small">Learn More</Button>
+      </Link>
       </CardActions>
     </Card>
     </div>

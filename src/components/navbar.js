@@ -66,17 +66,6 @@ export default function SearchAppBar() {
               AUCTION SITE
             </Link>
           </Typography>
-          <Link style={{ textDecoration: "none" }} to="/">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              Home Page
-            </Button>
-          </Link>
           <Link style={{ textDecoration: "none" }} to="/account">
             <Button
               variant="text"
@@ -97,17 +86,6 @@ export default function SearchAppBar() {
               }}
             >
               Sign in
-            </Button>
-          </Link>
-          <Link style={{ textDecoration: "none" }} to="/product">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              Product
             </Button>
           </Link>
           <Link style={{ textDecoration: "none" }} to="/allusers">
