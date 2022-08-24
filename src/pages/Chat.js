@@ -6,16 +6,46 @@ import {
   MessageList,
   Message,
   MessageInput,
-  MessageSeparator
+  MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
 
-
+const DATA = [
+  {
+    key: 1,
+    message: "Hello there",
+    direction: "outgoing",
+    position: "single",
+  },
+  {
+    key: 2,
+    message: "Hi",
+    direction: "incoming",
+    position: "single",
+  },{
+    key: 3,
+    message: "Hello there",
+    direction: "outgoing",
+    position: "single",
+  },
+  {
+    key: 4,
+    message: "Hi",
+    direction: "incoming",
+    position: "single",
+  },{
+    key: 5,
+    message: "Hello there",
+    direction: "outgoing",
+    position: "single",
+  },
+];
 
 function Chat() {
   function handleSend(x) {
     // Logger user (sender)
     console.log(x);
-    setMessageInputValue("")
+    DATA.push({key:DATA.length+1, message:x, direction:'outgoing', position:"single"});
+    setMessageInputValue("");
   }
   const [messageInputValue, setMessageInputValue] = useState("");
   return (
@@ -23,25 +53,11 @@ function Chat() {
       <MainContainer>
         <ChatContainer>
           <MessageList>
-            <Message
-              model={{
-                message: "Hello my friend",
-                sentTime: "15 mins ago",
-                sender: "Eliot",
-                direction: "incoming",
-                position: "single",
-              }}
-            />
-            <MessageSeparator content="Saturday, 31 November 2019" />
-            <Message
-              model={{
-                message: "Hello my friend",
-                sentTime: "15 mins ago",
-                sender: "Eliot",
-                direction: "outgoing",
-                position: "single",
-              }}
-            />
+            {DATA.map((item) => (
+              <Message
+                model={item}
+              />
+            ))}
           </MessageList>
           <MessageInput
             value={messageInputValue}
