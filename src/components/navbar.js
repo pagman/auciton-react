@@ -110,6 +110,17 @@ export default function SearchAppBar() {
               Product
             </Button>
           </Link>
+          <Link style={{ textDecoration: "none" }} to="/allusers">
+            <Button
+              variant="text"
+              style={{
+                color: "white",
+                fontSize: "15px",
+              }}
+            >
+              AllUsers
+            </Button>
+          </Link>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

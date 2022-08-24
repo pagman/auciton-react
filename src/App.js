@@ -5,6 +5,7 @@ import SigninPage from "./pages/Signin";
 import AccountPage from "./pages/Account";
 import SearchAppBar from "./components/navbar";
 import ProductPage from "./pages/productPage";
+import AllUsersPage from "./pages/AllUsers";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/account" element={<AccountPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/product" element={<ProductPage />} />
+        <Route path="/allusers" element={<AllUsersPage />} />
       </Routes>
     </div>
   );
