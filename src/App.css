@@ -44,3 +44,14 @@ h2 {
     width: 500px;
     float:left; /* add this */
 }
+.leaflet-container {
+  width: 100%;
+  height: 40vh;
+  z-index: 1;
+}
+
+.Mapdiv {
+  border-radius: 10%;
+  width: 500px;
+  height: 200px;
+}
