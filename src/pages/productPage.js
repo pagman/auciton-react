@@ -95,7 +95,7 @@ export default function ProductPage() {
                     onChange={handleInputChange}
                     label="Bid"
                   />
-                <AlertDialog bidValue={formValues} />
+                <AlertDialog inactive = {false} bidValue={formValues} />
                 </Box>
               </div>
               <div className="center">

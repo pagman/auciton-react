@@ -21,7 +21,7 @@ export default function AlertDialog(props) {
 
   return (
     <div>
-      <Button variant="contained" onClick={handleClickOpen}>
+      <Button disabled={props.inactive} variant="contained" onClick={handleClickOpen}>
         Bid
       </Button>
       <Dialog
