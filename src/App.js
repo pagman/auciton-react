@@ -8,6 +8,8 @@ import ProductPage from "./pages/productPage";
 import AllUsersPage from "./pages/AllUsers";
 import Chat from "./pages/Chat";
 import UserDetailsPage from "./pages/UserDetails";
+import MyAccountPage from "./pages/MyAccountPage";
+import AddAuctionPage from "./pages/AddAuctionPage";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
         <Route path="/chat" element={<Chat />} />
+        <Route path="/myaccount" element={<MyAccountPage />} />
+        <Route path="/addauction" element={<AddAuctionPage />} />
         <Route path="/userdetails" element={<UserDetailsPage />} />
       </Routes>
     </div>
