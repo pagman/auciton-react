@@ -1,5 +1,5 @@
 import * as React from "react";
-import BasicCard from "../components/Card";
+import EditCard from "../components/EditCard";
 import TablePagination from "@mui/material/TablePagination";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@mui/icons-material/Add";
@@ -180,7 +180,7 @@ function MyAccountPage() {
           page * rowsPerPage,
           page * rowsPerPage + rowsPerPage
         ).map((item) => (
-          <BasicCard
+          <EditCard
             key={item.key}
             header={item.header}
             image={item.image}

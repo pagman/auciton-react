@@ -10,6 +10,7 @@ import Chat from "./pages/Chat";
 import UserDetailsPage from "./pages/UserDetails";
 import MyAccountPage from "./pages/MyAccountPage";
 import AddAuctionPage from "./pages/AddAuctionPage";
+import EditAuctionPage from "./pages/EditAuctionPage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/myaccount" element={<MyAccountPage />} />
         <Route path="/addauction" element={<AddAuctionPage />} />
+        <Route path="/editauction" element={<EditAuctionPage />} />
         <Route path="/userdetails" element={<UserDetailsPage />} />
       </Routes>
     </div>
