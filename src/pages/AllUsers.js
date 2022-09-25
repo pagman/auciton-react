@@ -81,7 +81,7 @@ function AllUsersPage() {
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
   const [list, setList] = React.useState(initialList)
 
-  function handleAdd(data) {
+  function loadUsers(data) {
     setList(data)
   }
 
@@ -97,7 +97,7 @@ function AllUsersPage() {
     .get("http://localhost:8080/users/", {
       headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" },
     })
-    .then(res => handleAdd(res.data))
+    .then(res => loadUsers(res.data))
     .catch(console.log);
 
   return (
