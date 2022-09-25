@@ -12,6 +12,7 @@ import MyAccountPage from "./pages/MyAccountPage";
 import AddAuctionPage from "./pages/AddAuctionPage";
 import EditAuctionPage from "./pages/EditAuctionPage";
 
+
 function App() {
   return (
     <div>

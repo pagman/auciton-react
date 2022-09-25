@@ -3,6 +3,8 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from 'axios';
+import '../config';
+
 
 const defaultValues = {
   name: "",
@@ -32,13 +34,17 @@ function SigninPage() {
     console.log(formValues);
   };
   const handleSignIn = (event) => {
+    global.config.user.role="aa"
     event.preventDefault();
     // console.log(formValues);
     console.log(formValues.name )
     axios.post('http://localhost:8080/login/', {username:formValues.username, password:formValues.password})
-        .then(response => console.log(response.data.role, response.data.token))
+        .then(response => {
+          console.log(response.data.role, response.data.token);
+          global.config.user.token = response.data.token;
+          global.config.user.role = response.data.role;
+        })
         .catch(error => {
-            this.setState({ errorMessage: error.message });
             console.error('There was an error!', error);
         });
 

@@ -1,6 +1,7 @@
 import * as React from "react";
 import BasicCard from "../components/Card";
 import TablePagination from '@mui/material/TablePagination';
+import '../config';
 const DUMMY_DATA = [
   {
     key:1,
@@ -152,7 +153,7 @@ function HomePage() {
   return (
     <center>
       <div>
-        <div>Home page</div>
+        <div>{global.config.user.role}</div>
           {DUMMY_DATA.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard
               key={item.key}
