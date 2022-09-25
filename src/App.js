@@ -19,7 +19,7 @@ function App() {
       <SearchAppBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/account" element={<AccountPage />} />
+        <Route path="/account/" element={<AccountPage />} />
         <Route path="/signin" element={<SigninPage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
@@ -27,7 +27,7 @@ function App() {
         <Route path="/myaccount" element={<MyAccountPage />} />
         <Route path="/addauction" element={<AddAuctionPage />} />
         <Route path="/editauction" element={<EditAuctionPage />} />
-        <Route path="/userdetails" element={<UserDetailsPage />} />
+        <Route exact path="/userdetails/:id" element={<UserDetailsPage />} />
       </Routes>
     </div>
   );

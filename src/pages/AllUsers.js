@@ -1,5 +1,5 @@
 import * as React from "react";
-import {useEffect} from 'react';
+import { useEffect } from "react";
 import TablePagination from "@mui/material/TablePagination";
 import UserCard from "../components/userCard";
 import axios from "axios";
@@ -64,16 +64,15 @@ const DUMMY_DATA = [
   },
 ];
 
-
 var DATA = [];
 
 function AllUsersPage() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(50);
-  const [list, setList] = React.useState([])
+  const [list, setList] = React.useState([]);
 
   function loadUsers(data) {
-    setList(data)
+    setList(data);
   }
 
   const handleChangePage = (event, newPage) => {
@@ -84,20 +83,14 @@ function AllUsersPage() {
     setPage(0);
   };
 
-  
-
-
-    useEffect(() => {
-      const res = axios
-    .get("http://localhost:8080/users/", {
-      headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" },
-    })
-    .then(res => loadUsers(res.data))
-    .catch(console.log);
-    });
-  
-
-
+  useEffect(() => {
+    const res = axios
+      .get("http://localhost:8080/users/", {
+        headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" },
+      })
+      .then((res) => loadUsers(res.data))
+      .catch(console.log);
+  });
 
   if (!list.length) return <div>Loading...</div>;
 
@@ -105,12 +98,16 @@ function AllUsersPage() {
     <center>
       <div className="center">
         <div>All users page</div>
-        {list.slice(
-          page * rowsPerPage,
-          page * rowsPerPage + rowsPerPage
-        ).map((item) => (
-          <UserCard key={item.id} username={item.username} />
-        ))}
+        {list
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((item) => (
+            <UserCard
+              key={item.id}
+              id={item.id}
+              username={item.username}
+              validated = {item.validated}
+            />
+          ))}
       </div>
       <TablePagination
         component="div"

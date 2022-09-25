@@ -13,14 +13,14 @@ export default function UserCard(props) {
   return (
     <div className = 'myCard'>
     <Card sx={{ minWidth: 275 }}>
-      <CardContent>
+      <CardContent style={{backgroundColor: props.validated ?"#2ECC71":"#C70039"}}>
         <Typography variant="h5" component="div">
           {props.username}
         </Typography>
         
       </CardContent>
       <CardActions>
-      <Link style={{ textDecoration: "none" }} to="/userdetails"> 
+      <Link style={{ textDecoration: "none" }} to={"/userdetails/"+props.id}> 
         <Button size="small"> More</Button>
         </Link>
       </CardActions>

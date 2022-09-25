@@ -3,6 +3,12 @@ import { styled } from "@mui/material/styles";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import {
+  useParams
+} from "react-router-dom";
+import axios from "axios";
+import "../config";
+import { useEffect } from "react";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -12,21 +18,19 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const DUMMY_DATA = [
-  {
-    key: 1,
-    username: "Pagman13",
-    name: "Panagiotis",
-    lastName: "Mantas",
-    email: "mantas.pan1@gmail.com",
-    phone: "0306973247453",
-    address: "Lakonias 20 Daphne",
-    vat: "158854109",
-  },
-];
+
+
 
 
 function UserDetailsPage() {
+  const [list, setList] = React.useState([]);
+
+  function loadUsers(data) {
+    setList(data);
+  }
+
+  let { id } = useParams();
+
     function acceptHandler(x){
         console.log(x);
     
@@ -35,30 +39,43 @@ function UserDetailsPage() {
         console.log(x);
     
     }
+
+    useEffect(() => {
+      const res = axios
+        .get("http://localhost:8080/users/", {
+          headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" },
+        })
+        .then((res) => loadUsers(res.data))
+        .catch(console.log);
+    });
+  
+    if (!list.length) return <div>Loading...</div>;
+    console.log(list)
+  
   return (
     <div className="center">
-      {DUMMY_DATA.map((item) => (
+      
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Item>{item.username}</Item>
+            <Item>{list[list.length-id].id}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.name}</Item>
+            <Item>{list[list.length-id].name}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.lastName}</Item>
+            <Item>{list[list.length-id].surname}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.email}</Item>
+            <Item>{list[list.length-id].email}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.phone}</Item>
+            <Item>{list[list.length-id].phone}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.address}</Item>
+            <Item>{list[list.length-id].location}</Item>
           </Grid>
           <Grid item xs={6}>
-            <Item>{item.vat}</Item>
+            <Item>{list[list.length-id].afm}</Item>
           </Grid>
           <Grid
             container
@@ -93,7 +110,7 @@ function UserDetailsPage() {
             </Button>
           </Grid>
         </Grid>
-      ))}
+      
     </div>
   );
 }
