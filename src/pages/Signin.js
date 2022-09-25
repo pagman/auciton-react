@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from 'axios';
 
 const defaultValues = {
   name: "",
@@ -29,6 +30,18 @@ function SigninPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
+  };
+  const handleSignIn = (event) => {
+    event.preventDefault();
+    // console.log(formValues);
+    console.log(formValues.name )
+    axios.post('http://localhost:8080/login/', {username:formValues.username, password:formValues.password})
+        .then(response => console.log(response.data.role, response.data.token))
+        .catch(error => {
+            this.setState({ errorMessage: error.message });
+            console.error('There was an error!', error);
+        });
+
   };
 
   return (
@@ -131,7 +144,7 @@ function SigninPage() {
       <div className="floatingDivLeft">
         <h1 style={{ textAlign: "center" }}>Log in</h1>
         <Box
-          onSubmit={handleSubmit}
+          onSubmit={handleSignIn}
           component="form"
           sx={{
             "& .MuiTextField-root": { m: 1, width: "25ch" },
