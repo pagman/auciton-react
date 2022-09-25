@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import axios from 'axios';
-import '../config';
-
+import axios from "axios";
+import "../config";
 
 const defaultValues = {
   name: "",
@@ -18,6 +17,7 @@ const defaultValues = {
   vat: "",
   username: "",
   password: "",
+  country: "",
 };
 
 function SigninPage() {
@@ -32,22 +32,44 @@ function SigninPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
+    axios
+      .post("http://localhost:8080/users/", {
+        username: formValues.username,
+        password: formValues.password,
+        email: formValues.email,
+        name: formValues.name,
+        surname: formValues.lastName,
+        phone: formValues.phone,
+        location: formValues.address,
+        country: formValues.country,
+        afm: formValues.vat,
+        role: "user",
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
   const handleSignIn = (event) => {
-    global.config.user.role="aa"
+    global.config.user.role = "aa";
     event.preventDefault();
     // console.log(formValues);
-    console.log(formValues.name )
-    axios.post('http://localhost:8080/login/', {username:formValues.username, password:formValues.password})
-        .then(response => {
-          console.log(response.data.role, response.data.token);
-          global.config.user.token = response.data.token;
-          global.config.user.role = response.data.role;
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-        });
-
+    console.log(formValues.name);
+    axios
+      .post("http://localhost:8080/login/", {
+        username: formValues.username,
+        password: formValues.password,
+      })
+      .then((response) => {
+        console.log(response.data.role, response.data.token);
+        global.config.user.token = response.data.token;
+        global.config.user.role = response.data.role;
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
 
   return (
@@ -122,7 +144,14 @@ function SigninPage() {
               onChange={handleInputChange}
               label="Phone"
             />
-            
+            <TextField
+              required
+              id="country"
+              name="country"
+              type="text"
+              onChange={handleInputChange}
+              label="Country"
+            />
             <TextField
               required
               id="address"
