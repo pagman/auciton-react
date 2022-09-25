@@ -34,8 +34,8 @@ function SigninPage() {
     console.log(formValues);
     axios
       .post("http://localhost:8080/users/", {
-        username: formValues.username,
-        password: formValues.password,
+        username: formValues.newUsername,
+        password: formValues.newPassword,
         email: formValues.email,
         name: formValues.name,
         surname: formValues.lastName,
