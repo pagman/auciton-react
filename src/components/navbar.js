@@ -8,6 +8,8 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
+import { useEffect } from "react";
+import "../config";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -51,7 +53,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+export default function SearchAppBar({showing,showingAdmin}) {
+  
+
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -66,17 +72,7 @@ export default function SearchAppBar() {
               AUCTION SITE
             </Link>
           </Typography>
-          <Link style={{ textDecoration: "none" }} to="/account">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              Account
-            </Button>
-          </Link>
+          
           <Link style={{ textDecoration: "none" }} to="/signin">
             <Button
               variant="text"
@@ -88,7 +84,8 @@ export default function SearchAppBar() {
               Sign in
             </Button>
           </Link>
-          <Link style={{ textDecoration: "none" }} to="/allusers">
+          
+          {showingAdmin?<Link style={{ textDecoration: "none", }} to="/allusers">
             <Button
               variant="text"
               style={{
@@ -98,8 +95,8 @@ export default function SearchAppBar() {
             >
               AllUsers
             </Button>
-          </Link>
-          <Link style={{ textDecoration: "none" }} to="/chat">
+          </Link>:null}
+          {showing?<Link style={{ textDecoration: "none" }} to="/chat">
             <Button
               variant="text"
               style={{
@@ -109,8 +106,8 @@ export default function SearchAppBar() {
             >
               Chat
             </Button>
-          </Link>
-          <Link style={{ textDecoration: "none" }} to="/myaccount">
+          </Link>:null}
+          {showing?<Link style={{ textDecoration: "none" }} to="/myaccount">
             <Button
               variant="text"
               style={{
@@ -120,7 +117,7 @@ export default function SearchAppBar() {
             >
               My Account
             </Button>
-          </Link>
+          </Link>:null}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

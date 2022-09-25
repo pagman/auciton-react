@@ -1,4 +1,5 @@
 import "./App.css";
+import * as React from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Homepage";
 import SigninPage from "./pages/Signin";
@@ -14,13 +15,16 @@ import EditAuctionPage from "./pages/EditAuctionPage";
 
 
 function App() {
+  const [showingAdmin, setShowingAdmin] = React.useState(false);
+  const [showing, setShowing] = React.useState(false);
+
   return (
-    <div>
-      <SearchAppBar />
+    <div>      
+      <SearchAppBar showing={showing} showingAdmin={showingAdmin} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/account/" element={<AccountPage />} />
-        <Route path="/signin" element={<SigninPage />} />
+        <Route path="/signin" element={<SigninPage setShowing={setShowing}  setShowingAdmin={setShowingAdmin}/>} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
         <Route path="/chat" element={<Chat />} />

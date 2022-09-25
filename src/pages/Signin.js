@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../config";
 
 const defaultValues = {
@@ -20,7 +21,8 @@ const defaultValues = {
   country: "",
 };
 
-function SigninPage() {
+function SigninPage({ setShowing, setShowingAdmin }) {
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -66,6 +68,14 @@ function SigninPage() {
         console.log(response.data.role, response.data.token);
         global.config.user.token = response.data.token;
         global.config.user.role = response.data.role;
+        navigate("/");
+        if (response.data.role === "admin") {
+          setShowingAdmin(true);
+          setShowing(true);
+        }
+        if (response.data.role === "user") {
+          setShowing(true);
+        }
       })
       .catch((error) => {
         console.error("There was an error!", error);
