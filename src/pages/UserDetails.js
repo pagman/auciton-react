@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import "../config";
 import { useEffect } from "react";
+import '../config';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -33,6 +34,13 @@ function UserDetailsPage() {
 
     function acceptHandler(x){
         console.log(x);
+        axios.put(
+        "http://localhost:8080/admin/validate-user/", 
+        {user_id:id}, 
+        {headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" }}
+    )
+    .then(r => console.log(r.status))
+    .catch(e => console.log(e));
     
     }
     function denyHandler(x){
@@ -50,10 +58,11 @@ function UserDetailsPage() {
     });
   
     if (!list.length) return <div>Loading...</div>;
-    console.log(list)
+   
   
   return (
     <div className="center">
+      <div>{global.config.user.token}</div>
       
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -76,6 +85,9 @@ function UserDetailsPage() {
           </Grid>
           <Grid item xs={6}>
             <Item>{list[list.length-id].afm}</Item>
+          </Grid>
+          <Grid item xs={12}>
+            <Item>{list[list.length-id].validated.toString()}</Item>
           </Grid>
           <Grid
             container

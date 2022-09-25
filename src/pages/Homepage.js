@@ -153,7 +153,7 @@ function HomePage() {
   return (
     <center>
       <div>
-        <div>{global.config.user.role}</div>
+        <div>{global.config.user.token}</div>
           {DUMMY_DATA.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard
               key={item.key}
