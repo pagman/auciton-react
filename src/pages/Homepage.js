@@ -176,9 +176,9 @@ function HomePage() {
               key={item.id}
               header={item.buy_price + "€"}
               image={item.photos[0].URL}
-              title={item.name}
+              title={item.name.slice(0,50)}
               categories={item.categories[0].name}
-              description={item.description}
+              description={item.description.slice(0,50)}
             />            
           ))}
           

@@ -24,7 +24,7 @@ export default function BasicCard(props) {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {props.header}
         </Typography>
-        <Typography variant="h5" component="div">
+        <Typography variant="h7" component="div">
           {props.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">

@@ -1,26 +1,32 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import '../config';
+import Alert from "@mui/material/Alert";
+
+import "../config";
 
 const defaultValues = {
   img: "",
   name: "",
   category: "",
   description: "",
-  buyprice:"",
+  buyprice: "",
   location: "",
   country: "",
-  latitude:"",
-  longtitude:"",
+  latitude: "",
+  longtitude: "",
   starts: "",
   ends: "",
 };
 
 function AddAuctionPage() {
   const [formValues, setFormValues] = useState(defaultValues);
+  const [requiredError, setRequiredError] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState(false);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -32,28 +38,50 @@ function AddAuctionPage() {
     event.preventDefault();
     console.log(formValues);
     console.log(formValues);
-    axios
-      .post("http://localhost:8080/register-auction/", {
-        name: formValues.name,
-        buy_price: formValues.buyprice,
-        location: formValues.location,
-        country: formValues.country,
-        latitude: formValues.latitude,
-        longtitude: formValues.longtitude,
-        start: formValues.starts,
-        ends: formValues.ends,
-        description: formValues.description,
-        photo: formValues.img.split(" "),
-        category: formValues.category.split(" "),
-      }, {
-        headers: { token: global.config.user.token },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    if (
+      (formValues.name != "") &
+      (formValues.buyprice != "") &
+      (formValues.location != "") &
+      (formValues.country != "") &
+      (formValues.latitude != "") &
+      (formValues.longtitude != "") &
+      (formValues.starts != "") &
+      (formValues.ends != "") &
+      (formValues.description != "") &
+      (formValues.img != "") &
+      (formValues.category != "")
+    ) {
+      axios
+        .post(
+          "http://localhost:8080/register-auction/",
+          {
+            name: formValues.name,
+            buy_price: formValues.buyprice,
+            location: formValues.location,
+            country: formValues.country,
+            latitude: formValues.latitude,
+            longtitude: formValues.longtitude,
+            start: formValues.starts,
+            ends: formValues.ends,
+            description: formValues.description,
+            photo: formValues.img.split(" "),
+            category: formValues.category.split(" "),
+          },
+          {
+            headers: { token: global.config.user.token },
+          }
+        )
+        .then((response) => {
+          console.log(response.data);
+          setSuccessMessage(true)
+        })
+        .catch((error) => {
+          setRequiredError(true);
+          console.error("There was an error!", error);
+        });
+    } else {
+      setRequiredError(true);
+    }
   };
 
   return (
@@ -70,7 +98,7 @@ function AddAuctionPage() {
           autoComplete="off"
         >
           <div>
-          <TextField
+            <TextField
               required
               id="img"
               name="img"
@@ -143,7 +171,7 @@ function AddAuctionPage() {
               label="Longtitude"
             />
             <TextField
-            required
+              required
               id="starts"
               name="starts"
               label="Start Time"
@@ -155,7 +183,7 @@ function AddAuctionPage() {
               }}
             />
             <TextField
-            required
+              required
               id="ends"
               name="ends"
               label="End Time"
@@ -168,12 +196,19 @@ function AddAuctionPage() {
             />
           </div>
           <center>
-          <Button disabled={false} variant="outlined" type="submit">
-            Submit
-          </Button>
-        </center>
+            <Button disabled={false} variant="outlined" type="submit">
+              Submit
+            </Button>
+            {requiredError ? (
+              <Alert severity="error">
+                There was an error
+              </Alert>
+            ) : null}
+            {successMessage ? (
+              <Alert severity="success">This is a success! — auction added!</Alert>
+            ) : null}
+          </center>
         </Box>
-        
       </div>
     </div>
   );

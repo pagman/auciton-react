@@ -4,7 +4,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Alert from '@mui/material/Alert';
+import Alert from "@mui/material/Alert";
 import "../config";
 
 const defaultValues = {
@@ -23,8 +23,8 @@ const defaultValues = {
 };
 
 function SigninPage({ setShowing, setShowingAdmin }) {
-  const [logInError, setlogInError] = React.useState(false)
-  const [sigUpError, setsigUpError] = React.useState(false)
+  const [logInError, setlogInError] = React.useState(false);
+  const [sigUpError, setsigUpError] = React.useState(false);
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
   const handleInputChange = (e) => {
@@ -37,39 +37,40 @@ function SigninPage({ setShowing, setShowingAdmin }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
-    if(formValues.newUsername !=""&
-    formValues.newPassword!=""&
-    formValues.email!=""&
-    formValues.lastName!=""&
-    formValues.phone!=""&
-    formValues.address!=""&
-    formValues.country!=""&
-    formValues.vat!=""){
-    axios
-      .post("http://localhost:8080/users/", {
-        username: formValues.newUsername,
-        password: formValues.newPassword,
-        email: formValues.email,
-        name: formValues.name,
-        surname: formValues.lastName,
-        phone: formValues.phone,
-        location: formValues.address,
-        country: formValues.country,
-        afm: formValues.vat,
-        role: "user",
-      })
-      .then((response) => {
-        console.log(response.data);
-        navigate("/");
-      })
-      .catch((error) => {
-        setsigUpError(true);
-        console.error("There was an error!", error);
-      });
-    }
-    else{
+    if (
+      (formValues.newUsername != "") &
+      (formValues.newPassword != "") &
+      (formValues.email != "") &
+      (formValues.lastName != "") &
+      (formValues.phone != "") &
+      (formValues.address != "") &
+      (formValues.country != "") &
+      (formValues.vat != "")
+    ) {
+      axios
+        .post("http://localhost:8080/users/", {
+          username: formValues.newUsername,
+          password: formValues.newPassword,
+          email: formValues.email,
+          name: formValues.name,
+          surname: formValues.lastName,
+          phone: formValues.phone,
+          location: formValues.address,
+          country: formValues.country,
+          afm: formValues.vat,
+          role: "user",
+        })
+        .then((response) => {
+          console.log(response.data);
+          navigate("/");
+        })
+        .catch((error) => {
+          setsigUpError(true);
+          console.error("There was an error!", error);
+        });
+    } else {
       setsigUpError(true);
-    };
+    }
   };
   const handleSignIn = (event) => {
     global.config.user.role = "aa";
@@ -95,7 +96,7 @@ function SigninPage({ setShowing, setShowingAdmin }) {
         }
       })
       .catch((error) => {
-        setlogInError(true)
+        setlogInError(true);
         console.error("There was an error!", error);
       });
   };
@@ -201,9 +202,8 @@ function SigninPage({ setShowing, setShowingAdmin }) {
             <Button disabled={false} variant="outlined" type="submit">
               Submit
             </Button>
-            {sigUpError?<Alert severity="error">Log in Error</Alert>:null}
+            {sigUpError ? <Alert severity="error">Log in Error</Alert> : null}
           </div>
-          
         </Box>
       </div>
       <div className="floatingDivLeft">
@@ -240,7 +240,7 @@ function SigninPage({ setShowing, setShowingAdmin }) {
             <Button variant="outlined" type="submit">
               Log in
             </Button>
-            {logInError?<Alert severity="error">Log in Error</Alert>:null}
+            {logInError ? <Alert severity="error">Log in Error</Alert> : null}
           </div>
         </Box>
       </div>
