@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -39,17 +38,17 @@ function AddAuctionPage() {
     console.log(formValues);
     console.log(formValues);
     if (
-      (formValues.name != "") &
-      (formValues.buyprice != "") &
-      (formValues.location != "") &
-      (formValues.country != "") &
-      (formValues.latitude != "") &
-      (formValues.longtitude != "") &
-      (formValues.starts != "") &
-      (formValues.ends != "") &
-      (formValues.description != "") &
-      (formValues.img != "") &
-      (formValues.category != "")
+      (formValues.name !== "") &
+      (formValues.buyprice !== "") &
+      (formValues.location !== "") &
+      (formValues.country !== "") &
+      (formValues.latitude !== "") &
+      (formValues.longtitude !== "") &
+      (formValues.starts !== "") &
+      (formValues.ends !== "") &
+      (formValues.description !== "") &
+      (formValues.img !== "") &
+      (formValues.category !== "")
     ) {
       axios
         .post(

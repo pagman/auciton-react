@@ -6,7 +6,6 @@ import {
   MessageList,
   Message,
   MessageInput,
-  MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
 
 const DATA = [

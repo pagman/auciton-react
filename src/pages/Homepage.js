@@ -4,140 +4,6 @@ import BasicCard from "../components/Card";
 import TablePagination from '@mui/material/TablePagination';
 import axios from "axios";
 import '../config';
-const DUMMY_DATA = [
-  {
-    key:1,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },{
-    key:2,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:3,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:4,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:5,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },{
-    key:6,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:7,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:8,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:9,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },{
-    key:10,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:11,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:12,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:13,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },{
-    key:14,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:15,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:16,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  },
-  {
-    key:17,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg'
-  }
-];
 
 function HomePage() {
   const [page, setPage] = React.useState(0);
@@ -157,7 +23,7 @@ function HomePage() {
   };
 
   useEffect(() => {
-    const res = axios
+    axios
       .get("http://localhost:8080/auctions/", {
         headers: { token: "5ad14b3a-68fd-45ed-8cc5-19ee0dd15f15" },
       })

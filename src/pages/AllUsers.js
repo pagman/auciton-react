@@ -25,7 +25,7 @@ function AllUsersPage() {
   };
 
   useEffect(() => {
-    const res = axios
+    axios
       .get("http://localhost:8080/users/", {
         headers: { token: global.config.user.token },
       })

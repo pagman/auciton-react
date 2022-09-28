@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import Button from "@mui/material/Button";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import Table from "@mui/material/Table";
@@ -60,6 +59,7 @@ export default function ProductPage() {
   return (
     <div className="center">
       <div>
+        {id}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={6}>

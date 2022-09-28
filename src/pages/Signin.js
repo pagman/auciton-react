@@ -44,14 +44,14 @@ function SigninPage({ setShowing, setShowingAdmin }) {
     event.preventDefault();
     console.log(formValues);
     if (
-      (formValues.newUsername != "") &
-      (formValues.newPassword != "") &
-      (formValues.email != "") &
-      (formValues.lastName != "") &
-      (formValues.phone != "") &
-      (formValues.address != "") &
-      (formValues.country != "") &
-      (formValues.vat != "")
+      (formValues.newUsername !== "") &
+      (formValues.newPassword !== "") &
+      (formValues.email !== "") &
+      (formValues.lastName !== "") &
+      (formValues.phone !== "") &
+      (formValues.address !== "") &
+      (formValues.country !== "") &
+      (formValues.vat !== "")
     ) {
       axios
         .post("http://localhost:8080/users/", {
@@ -94,8 +94,6 @@ function SigninPage({ setShowing, setShowingAdmin }) {
         global.config.user.role = response.data.role;
         cookies.set("token", response.data.token, { path: "/", expires: nextYear });
         cookies.set("role", response.data.role, { path: "/", expires: nextYear });
-        console.log(cookies.get("token")); // Pacman
-        console.log(cookies.get("role")); // Pacman
         navigate("/");
         if (response.data.role === "admin") {
           setShowingAdmin(true);
