@@ -8,7 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 import { Button } from "@mui/material";
-import { useEffect } from "react";
+import Cookies from "universal-cookie";
 import "../config";
 
 const Search = styled("div")(({ theme }) => ({
@@ -53,7 +53,16 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar({showing,showingAdmin}) {
+export default function SearchAppBar({showing,showingAdmin, setShowing, setShowingAdmin}) {
+  const cookies = new Cookies();
+
+  if (cookies.get("role") === "admin") {
+    setShowingAdmin(true);
+    setShowing(true);
+  }
+  if (cookies.get("role") === "user") {
+    setShowing(true);
+  }
   
 
 

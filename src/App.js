@@ -12,15 +12,27 @@ import UserDetailsPage from "./pages/UserDetails";
 import MyAccountPage from "./pages/MyAccountPage";
 import AddAuctionPage from "./pages/AddAuctionPage";
 import EditAuctionPage from "./pages/EditAuctionPage";
+import Cookies from "universal-cookie";
+import "./config"
 
 
 function App() {
   const [showingAdmin, setShowingAdmin] = React.useState(false);
   const [showing, setShowing] = React.useState(false);
+  const cookies = new Cookies();
+
+  console.log(cookies.get("token")); // Pacman
+  console.log(cookies.get("role")); // Pacman
+
+  global.config.user.token = cookies.get("token");
+  global.config.user.role = cookies.get("role");
+
+  
+
 
   return (
     <div>      
-      <SearchAppBar showing={showing} showingAdmin={showingAdmin} />
+      <SearchAppBar showing={showing} showingAdmin={showingAdmin} setShowing={setShowing}  setShowingAdmin={setShowingAdmin} />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/account/" element={<AccountPage />} />

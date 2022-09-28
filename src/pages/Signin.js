@@ -5,6 +5,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Alert from "@mui/material/Alert";
+import Cookies from "universal-cookie";
 import "../config";
 
 const defaultValues = {
@@ -27,6 +28,11 @@ function SigninPage({ setShowing, setShowingAdmin }) {
   const [sigUpError, setsigUpError] = React.useState(false);
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState(defaultValues);
+  const cookies = new Cookies();
+  const current = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(current.getFullYear() + 1);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
@@ -86,6 +92,10 @@ function SigninPage({ setShowing, setShowingAdmin }) {
         console.log(response.data.role, response.data.token);
         global.config.user.token = response.data.token;
         global.config.user.role = response.data.role;
+        cookies.set("token", response.data.token, { path: "/", expires: nextYear });
+        cookies.set("role", response.data.role, { path: "/", expires: nextYear });
+        console.log(cookies.get("token")); // Pacman
+        console.log(cookies.get("role")); // Pacman
         navigate("/");
         if (response.data.role === "admin") {
           setShowingAdmin(true);
