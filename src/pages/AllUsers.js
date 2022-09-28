@@ -5,66 +5,7 @@ import UserCard from "../components/userCard";
 import axios from "axios";
 import "../config";
 
-const DUMMY_DATA = [
-  {
-    key: 1,
-    username: "name1 lastname1",
-  },
-  {
-    key: 2,
-    username: "name2 lastname2",
-  },
-  {
-    key: 3,
-    username: "name3 lastname4",
-  },
-  {
-    key: 4,
-    username: "name4 lastname5",
-  },
-  {
-    key: 5,
-    username: "name5 lastname5",
-  },
-  {
-    key: 6,
-    username: "name6 lastname6",
-  },
-  {
-    key: 7,
-    username: "name7 lastname7",
-  },
-  {
-    key: 8,
-    username: "name8 lastname8",
-  },
-  {
-    key: 9,
-    username: "name9 lastname9",
-  },
-  {
-    key: 10,
-    username: "name10 lastname10",
-  },
-  {
-    key: 11,
-    username: "name11 lastname11",
-  },
-  {
-    key: 12,
-    username: "name12 lastname12",
-  },
-  {
-    key: 13,
-    username: "name13 lastname13",
-  },
-  {
-    key: 14,
-    username: "name14 lastname14",
-  },
-];
 
-var DATA = [];
 
 function AllUsersPage() {
   const [page, setPage] = React.useState(0);

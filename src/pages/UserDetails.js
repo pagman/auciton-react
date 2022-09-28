@@ -37,7 +37,7 @@ function UserDetailsPage() {
         axios.put(
         "http://localhost:8080/admin/validate-user/", 
         {user_id:id}, 
-        {headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" }}
+        {headers: { token: global.config.user.token }}
     )
     .then(r => console.log(r.status))
     .catch(e => console.log(e));
@@ -51,7 +51,7 @@ function UserDetailsPage() {
     useEffect(() => {
       const res = axios
         .get("http://localhost:8080/users/", {
-          headers: { token: "e6e4e4d7-c0bf-47be-b291-6fd87f1fbf26" },
+          headers: { token: global.config.user.token },
         })
         .then((res) => loadUsers(res.data))
         .catch(console.log);

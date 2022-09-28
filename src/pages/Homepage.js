@@ -159,7 +159,7 @@ function HomePage() {
   useEffect(() => {
     const res = axios
       .get("http://localhost:8080/auctions/", {
-        headers: { token: global.config.user.token },
+        headers: { token: "5ad14b3a-68fd-45ed-8cc5-19ee0dd15f15" },
       })
       .then((res) => loadAuctions(res.data))
       .catch(console.log);
@@ -181,6 +181,7 @@ function HomePage() {
               description={item.description}
             />            
           ))}
+          
       </div>
       <TablePagination
       component="div"
