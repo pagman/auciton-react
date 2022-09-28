@@ -6,7 +6,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-export default function AlertDialog(props) {
+export default function BuyNowDialog(props) {
   const [open, setOpen] = React.useState(false);
 
 
@@ -22,7 +22,7 @@ export default function AlertDialog(props) {
   return (
     <div>
       <Button disabled={props.inactive} variant="contained" onClick={handleClickOpen}>
-        Bid
+        Buy Now
       </Button>
       <Dialog
         open={open}

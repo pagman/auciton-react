@@ -1,6 +1,8 @@
 import * as React from "react";
+import { useEffect } from "react";
 import BasicCard from "../components/Card";
 import TablePagination from '@mui/material/TablePagination';
+import axios from "axios";
 import '../config';
 const DUMMY_DATA = [
   {
@@ -140,6 +142,11 @@ const DUMMY_DATA = [
 function HomePage() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [list, setList] = React.useState([]);
+
+  function loadAuctions(data) {
+    setList(data);
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -149,25 +156,35 @@ function HomePage() {
     setPage(0);
   };
 
+  useEffect(() => {
+    const res = axios
+      .get("http://localhost:8080/auctions/", {
+        headers: { token: global.config.user.token },
+      })
+      .then((res) => loadAuctions(res.data))
+      .catch(console.log);
+  });
+
+  if (!list.length) return <div>Loading...</div>
 
   return (
     <center>
       <div>
         <div>{global.config.user.token}</div>
-          {DUMMY_DATA.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
+          {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard
-              key={item.key}
-              header={item.header}
-              image={item.image}
-              title={item.title}
-              subtitle={item.subtitle}
-              text={item.text}
+              key={item.id}
+              header={item.buy_price + "€"}
+              image={item.photos[0].URL}
+              title={item.name}
+              categories={item.categories[0].name}
+              description={item.description}
             />            
           ))}
       </div>
       <TablePagination
       component="div"
-      count={DUMMY_DATA.length}
+      count={list.length}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}

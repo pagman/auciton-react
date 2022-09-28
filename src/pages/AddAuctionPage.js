@@ -2,15 +2,19 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import '../config';
 
 const defaultValues = {
   img: "",
   name: "",
   category: "",
   description: "",
-  startbid: "",
+  buyprice:"",
   location: "",
   country: "",
+  latitude:"",
+  longtitude:"",
   starts: "",
   ends: "",
 };
@@ -27,6 +31,29 @@ function AddAuctionPage() {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(formValues);
+    console.log(formValues);
+    axios
+      .post("http://localhost:8080/register-auction/", {
+        name: formValues.name,
+        buy_price: formValues.buyprice,
+        location: formValues.location,
+        country: formValues.country,
+        latitude: formValues.latitude,
+        longtitude: formValues.longtitude,
+        start: formValues.starts,
+        ends: formValues.ends,
+        description: formValues.description,
+        photo: formValues.img.split(" "),
+        category: formValues.category.split(" "),
+      }, {
+        headers: { token: global.config.user.token },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+      });
   };
 
   return (
@@ -69,14 +96,6 @@ function AddAuctionPage() {
             />
             <TextField
               required
-              id="email"
-              name="email"
-              type="text"
-              onChange={handleInputChange}
-              label="Email"
-            />
-            <TextField
-              required
               id="description"
               name="description"
               type="text"
@@ -85,11 +104,11 @@ function AddAuctionPage() {
             />
             <TextField
               required
-              id="startbid"
-              name="startbid"
+              id="buyprice"
+              name="buyprice"
               type="number"
               onChange={handleInputChange}
-              label="Starting price"
+              label="Buying price"
             />
             <TextField
               required
@@ -106,6 +125,22 @@ function AddAuctionPage() {
               type="text"
               onChange={handleInputChange}
               label="Country"
+            />
+            <TextField
+              required
+              id="latitude"
+              name="latitude"
+              type="number"
+              onChange={handleInputChange}
+              label="Latitude"
+            />
+            <TextField
+              required
+              id="longtitude"
+              name="longtitude"
+              type="number"
+              onChange={handleInputChange}
+              label="Longtitude"
             />
             <TextField
             required

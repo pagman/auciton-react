@@ -28,12 +28,11 @@ export default function BasicCard(props) {
           {props.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {props.subtitle}
+          {props.categories}
         </Typography>
         <Typography variant="body2">
-          {props.text}.
+          {props.description}.
           <br />
-          {props.text}.
         </Typography>
       </CardContent>
       <CardActions>

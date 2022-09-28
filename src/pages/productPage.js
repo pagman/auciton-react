@@ -11,6 +11,8 @@ import TextField from "@mui/material/TextField";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import AlertDialog from "../components/dialog";
+import BuyNowDialog from "../components/buynowdialog";
+import { Typography } from "@mui/material";
 
 const defaultValues = {
   bid: "",
@@ -25,8 +27,6 @@ const rows = [
   createData("daeveryone", "Dec-10-01 08:1:26)", 7.2),
   createData("danoone", "Dec-10-01 08:26:21)", 8.9),
 ];
-
-
 
 export default function ProductPage() {
   const [formValues, setFormValues] = useState(defaultValues);
@@ -95,13 +95,26 @@ export default function ProductPage() {
                     onChange={handleInputChange}
                     label="Bid"
                   />
-                <AlertDialog inactive = {false} bidValue={formValues} />
+                  <AlertDialog inactive={false} bidValue={formValues} />
                 </Box>
               </div>
               <div className="center">
-                
-                
+                <Box
+                  onSubmit={handleSubmit}
+                  component="form"
+                  sx={{
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                >
+                  <Typography variant="h2" component="h2">
+                    {7} €
+                  </Typography>
+                  <BuyNowDialog inactive={false} bidValue={7} />
+                </Box>
               </div>
+              <div className="center"></div>
             </Grid>
           </Grid>
         </Box>
