@@ -24,6 +24,9 @@ export default function BasicCard(props) {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {props.header}
         </Typography>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {props.id}
+        </Typography>
         <Typography variant="h7" component="div">
           {props.title}
         </Typography>
@@ -36,7 +39,7 @@ export default function BasicCard(props) {
         </Typography>
       </CardContent>
       <CardActions>
-      <Link style={{ textDecoration: "none" }} to="/product">
+      <Link style={{ textDecoration: "none" }} to={"/product/"+props.id}>
         <Button size="small">Learn More</Button>
       </Link>
       </CardActions>

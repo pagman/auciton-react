@@ -13,6 +13,7 @@ import TableRow from "@mui/material/TableRow";
 import AlertDialog from "../components/dialog";
 import BuyNowDialog from "../components/buynowdialog";
 import { Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 const defaultValues = {
   bid: "",
@@ -29,6 +30,7 @@ const rows = [
 ];
 
 export default function ProductPage() {
+  let { id } = useParams();
   const [formValues, setFormValues] = useState(defaultValues);
   const [open, setOpen] = React.useState(false);
 

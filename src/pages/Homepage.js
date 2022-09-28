@@ -179,6 +179,7 @@ function HomePage() {
               title={item.name.slice(0,50)}
               categories={item.categories[0].name}
               description={item.description.slice(0,50)}
+              id = {item.id}
             />            
           ))}
           

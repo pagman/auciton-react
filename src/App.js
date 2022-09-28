@@ -25,7 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/account/" element={<AccountPage />} />
         <Route path="/signin" element={<SigninPage setShowing={setShowing}  setShowingAdmin={setShowingAdmin}/>} />
-        <Route path="/product" element={<ProductPage />} />
+        <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
         <Route path="/chat" element={<Chat />} />
         <Route path="/myaccount" element={<MyAccountPage />} />
