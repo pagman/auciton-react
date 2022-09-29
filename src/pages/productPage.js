@@ -12,9 +12,10 @@ import TableRow from "@mui/material/TableRow";
 import AlertDialog from "../components/dialog";
 import BuyNowDialog from "../components/buynowdialog";
 import { listSubheaderClasses, Typography } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import '../config';
+import { Button } from "@mui/material";
+import "../config";
 
 const defaultValues = {
   bid: 0.0,
@@ -31,11 +32,19 @@ const rows = [
 ];
 
 export default function ProductPage() {
+
+  const handleMessage = () => {
+    navigate('/chat');
+  };
+
+
   let { id } = useParams();
   const [formValues, setFormValues] = useState(defaultValues);
   const [open, setOpen] = React.useState(false);
   const [list, setList] = React.useState([]);
-  const [LatLng, setLatLng] = React.useState([0.0,0.0]);
+  const [LatLng, setLatLng] = React.useState([0.0, 0.0]);
+  const [winner, setWinner] = React.useState(false);
+  const navigate = useNavigate();
 
   function loadAuctions(data) {
     setList(data);
@@ -66,17 +75,30 @@ export default function ProductPage() {
       shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
     });
     axios
-      .get('http://localhost:8080/get-auction/'+id+'/' ,{
-      })
+      .get("http://localhost:8080/get-auction/" + id + "/", {})
       .then((res) => {
         loadAuctions(res.data);
-        setLatLng([parseFloat(res.data.latitude), parseFloat(res.data.longtitude)]);
+        setLatLng([
+          parseFloat(res.data.latitude),
+          parseFloat(res.data.longtitude),
+        ]);
+      })
+      .catch(console.log);
+
+    axios
+      .get("http://localhost:8080/auction-winner/" + id + "/", {
+        headers: { token: global.config.user.token },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setWinner(res.data.is_auction_winner);
+        console.log(winner)
       })
       .catch(console.log);
   }, [open]);
 
   if (!list) return <div>Loading...</div>;
-  
+
   return (
     <div className="center">
       <div>
@@ -90,6 +112,13 @@ export default function ProductPage() {
                   src="https://i.ebayimg.com/images/g/pxcAAOSwis1hwW4V/s-l500.jpg"
                   alt="new"
                 />
+                <Button
+                      disabled={winner==="true"?true:false}
+                      variant="contained"
+                      onClick={handleMessage}
+                    >
+                      Message Seller
+                    </Button>
               </center>
             </Grid>
             <Grid item xs={6}>
@@ -112,7 +141,11 @@ export default function ProductPage() {
                     onChange={handleInputChange}
                     label={list.currently}
                   />
-                  <AlertDialog inactive={false} bidValue={formValues.bid} auction_id={id}/>
+                  <AlertDialog
+                    inactive={false}
+                    bidValue={formValues.bid}
+                    auction_id={id}
+                  />
                 </Box>
               </div>
               <div className="center">
@@ -142,6 +175,7 @@ export default function ProductPage() {
       </container>
       <container>
         <br></br>
+        
         <br></br>
         <MapContainer
           className="leaflet-container"
@@ -172,18 +206,19 @@ export default function ProductPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.bids && list.bids.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.bidder_id}
-                </TableCell>
-                <TableCell align="right">{row.time}</TableCell>
-                <TableCell align="right">{row.amount}</TableCell>
-              </TableRow>
-            ))}
+            {list.bids &&
+              list.bids.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.bidder_id}
+                  </TableCell>
+                  <TableCell align="right">{row.time}</TableCell>
+                  <TableCell align="right">{row.amount}</TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </container>
