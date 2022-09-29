@@ -4,6 +4,17 @@ import TablePagination from "@mui/material/TablePagination";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 const DUMMY_DATA = [
   {
     key: 1,
@@ -163,6 +174,12 @@ const DUMMY_DATA = [
 function MyAccountPage() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [state, setState] = React.useState("My Auctions");
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    console.log(anchor);
+    setState(anchor);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -174,6 +191,13 @@ function MyAccountPage() {
 
   return (
     <center>
+       <div>
+      {['My Auctions', 'Winning Auctions'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+        </React.Fragment>
+      ))}
+    </div>
       <div>
         <div>My Account</div>
         {DUMMY_DATA.slice(

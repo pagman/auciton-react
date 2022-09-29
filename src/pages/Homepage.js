@@ -24,8 +24,9 @@ function HomePage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/auctions/", {
-        headers: { token: "5ad14b3a-68fd-45ed-8cc5-19ee0dd15f15" },
+      .get('http://localhost:8080/auctions/' ,{
+        headers: { token: "cdd8828a-1b25-447d-8f8c-98fa44986add" },
+        arams: { skip: page * rowsPerPage ,limit: page * rowsPerPage + rowsPerPage }
       })
       .then((res) => loadAuctions(res.data))
       .catch(console.log);
@@ -52,7 +53,7 @@ function HomePage() {
       </div>
       <TablePagination
       component="div"
-      count={list.length}
+      count={list[0].id}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
