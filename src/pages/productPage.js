@@ -17,7 +17,7 @@ import axios from "axios";
 import '../config';
 
 const defaultValues = {
-  bid: "",
+  bid: 0.0,
 };
 
 function createData(userID, time, amount) {
@@ -39,7 +39,8 @@ export default function ProductPage() {
 
   function loadAuctions(data) {
     setList(data);
-    console.log(list)
+    console.log(list);
+    console.log(list.bids);
   }
 
   const handleInputChange = (e) => {
@@ -72,7 +73,7 @@ export default function ProductPage() {
         setLatLng([parseFloat(res.data.latitude), parseFloat(res.data.longtitude)]);
       })
       .catch(console.log);
-  }, []);
+  }, [open]);
 
   if (!list) return <div>Loading...</div>;
   
@@ -111,7 +112,7 @@ export default function ProductPage() {
                     onChange={handleInputChange}
                     label={list.currently}
                   />
-                  <AlertDialog inactive={false} bidValue={formValues} />
+                  <AlertDialog inactive={false} bidValue={formValues.bid} auction_id={id}/>
                 </Box>
               </div>
               <div className="center">
@@ -161,7 +162,7 @@ export default function ProductPage() {
           </Marker>
         </MapContainer>
       </container>
-      {list.bids.length!==0?<container>
+      <container>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -171,13 +172,13 @@ export default function ProductPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.bids.map((row) => (
+            {list.bids && list.bids.map((row) => (
               <TableRow
-                key={row.bidder_id}
+                key={row.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.userID}
+                  {row.bidder_id}
                 </TableCell>
                 <TableCell align="right">{row.time}</TableCell>
                 <TableCell align="right">{row.amount}</TableCell>
@@ -185,7 +186,7 @@ export default function ProductPage() {
             ))}
           </TableBody>
         </Table>
-      </container>:null}
+      </container>
     </div>
   );
 }
