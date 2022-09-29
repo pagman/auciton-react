@@ -2,20 +2,12 @@ import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
+import Alert from "@mui/material/Alert";
+import "../config";
 
-const DUMMY_DATA = [
-  {
-    key: 1,
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-    name: "product sample",
-    category: "Clothing",
-    description: "a paragraph or sth like that tha is big",
-    startbid: 7,
-    location: "Athens",
-    country: "Greece",
-    starts: "2022-08-31T10:30",
-    ends: "2022-08-31T10:30"
-  },]
 
 const defaultValues = {
   img: "",
@@ -30,18 +22,44 @@ const defaultValues = {
 };
 
 function EditAuctionPage() {
+  let { id } = useParams();
   const [formValues, setFormValues] = useState(defaultValues);
+  const [list, setList] = React.useState();
+  const [Error, setError] = React.useState(false);
+
+  function loadAuctions(data) {
+    setList(data);
+    console.log(list);
+    console.log("setting...");
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormValues({
       ...formValues,
       [name]: value,
     });
+
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(event);
     console.log(formValues);
   };
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/get-auction/" + id + "/", {})
+      .then((res) => {
+        loadAuctions(res.data);
+      })
+      .catch((error) => {
+        console.error(error);
+        setError(true);
+      });
+  }, []);
+
+  if (!list) return <div>Loading...</div>;
 
   return (
     <div className="center">
@@ -57,13 +75,13 @@ function EditAuctionPage() {
           autoComplete="off"
         >
           <div>
-          <TextField
+            <TextField
               required
               id="img"
               name="img"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].img}
+              defaultValue={list.photos[0].URL}
             />
             <TextField
               required
@@ -71,7 +89,7 @@ function EditAuctionPage() {
               name="name"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].name}
+              defaultValue={list.name}
             />
             <TextField
               required
@@ -79,7 +97,7 @@ function EditAuctionPage() {
               name="category"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].category}
+              defaultValue={list.categories[0].name}
             />
             <TextField
               required
@@ -87,7 +105,7 @@ function EditAuctionPage() {
               name="description"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].description}
+              defaultValue={list.description}
             />
             <TextField
               required
@@ -95,7 +113,7 @@ function EditAuctionPage() {
               name="startbid"
               type="number"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].startbid}
+              defaultValue={list.buy_price}
             />
             <TextField
               required
@@ -103,7 +121,7 @@ function EditAuctionPage() {
               name="location"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].location}
+              defaultValue={list.location}
             />
             <TextField
               required
@@ -111,40 +129,40 @@ function EditAuctionPage() {
               name="country"
               type="text"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].country}
+              defaultValue={list.country}
             />
             <TextField
-            required
+              required
               id="starts"
               name="starts"
               label="Start Time"
               type="datetime-local"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].starts}
+              defaultValue={list.start}
               InputLabelProps={{
                 shrink: true,
               }}
             />
             <TextField
-            required
+              required
               id="ends"
               name="ends"
               label="End Time"
               type="datetime-local"
               onChange={handleInputChange}
-              defaultValue={DUMMY_DATA[0].ends}
+              defaultValue={list.ends}
               InputLabelProps={{
                 shrink: true,
               }}
             />
           </div>
           <center>
-          <Button disabled={false} variant="outlined" type="submit">
-            Submit
-          </Button>
-        </center>
+            <Button disabled={false} variant="outlined" type="submit">
+              Submit
+            </Button>
+            {Error ? <Alert severity="error">Unable to change</Alert> : null}
+          </center>
         </Box>
-        
       </div>
     </div>
   );

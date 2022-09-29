@@ -24,20 +24,22 @@ export default function EditCard(props) {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {props.header}
         </Typography>
-        <Typography variant="h5" component="div">
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {props.id}
+        </Typography>
+        <Typography variant="h7" component="div">
           {props.title}
         </Typography>
         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {props.subtitle}
+          {props.categories}
         </Typography>
         <Typography variant="body2">
-          {props.text}.
+          {props.description}.
           <br />
-          {props.text}.
         </Typography>
       </CardContent>
       <CardActions>
-      <Link style={{ textDecoration: "none" }} to="/editauction">
+      <Link style={{ textDecoration: "none" }} to={"/editauction/"+props.id}>
         <Button size="small">Learn More</Button>
       </Link>
       </CardActions>

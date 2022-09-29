@@ -42,7 +42,7 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/myaccount" element={<MyAccountPage />} />
         <Route path="/addauction" element={<AddAuctionPage />} />
-        <Route path="/editauction" element={<EditAuctionPage />} />
+        <Route exact path="/editauction/:id" element={<EditAuctionPage />} />
         <Route exact path="/userdetails/:id" element={<UserDetailsPage />} />
       </Routes>
     </div>

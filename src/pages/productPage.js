@@ -11,8 +11,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import AlertDialog from "../components/dialog";
 import BuyNowDialog from "../components/buynowdialog";
-import { Typography } from "@mui/material";
+import { listSubheaderClasses, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import '../config';
 
 const defaultValues = {
   bid: "",
@@ -32,6 +34,13 @@ export default function ProductPage() {
   let { id } = useParams();
   const [formValues, setFormValues] = useState(defaultValues);
   const [open, setOpen] = React.useState(false);
+  const [list, setList] = React.useState([]);
+  const [LatLng, setLatLng] = React.useState([0.0,0.0]);
+
+  function loadAuctions(data) {
+    setList(data);
+    console.log(list)
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,11 +64,21 @@ export default function ProductPage() {
       iconUrl: require("leaflet/dist/images/marker-icon.png"),
       shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
     });
+    axios
+      .get('http://localhost:8080/get-auction/'+id+'/' ,{
+      })
+      .then((res) => {
+        loadAuctions(res.data);
+        setLatLng([parseFloat(res.data.latitude), parseFloat(res.data.longtitude)]);
+      })
+      .catch(console.log);
   }, []);
+
+  if (!list) return <div>Loading...</div>;
+  
   return (
     <div className="center">
       <div>
-        {id}
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={2}>
             <Grid item xs={6}>
@@ -67,18 +86,13 @@ export default function ProductPage() {
                 {" "}
                 <img
                   className="shopImg"
-                  src="https://m.media-amazon.com/images/I/61QZ72APrOL._UL1000_.jpg"
+                  src="https://i.ebayimg.com/images/g/pxcAAOSwis1hwW4V/s-l500.jpg"
                   alt="new"
                 />
               </center>
             </Grid>
             <Grid item xs={6}>
-              <div className="vertical-center">
-                There are many variations of passages of Lorem Ipsum available,
-                but the majority have suffered alteration in some form, by
-                injected humour, or randomised words which don't look even
-                slightly believable.
-              </div>
+              <h2>{list.name}</h2>
               <div className="center">
                 <Box
                   onSubmit={handleSubmit}
@@ -95,7 +109,7 @@ export default function ProductPage() {
                     name="bid"
                     type="number"
                     onChange={handleInputChange}
-                    label="Bid"
+                    label={list.currently}
                   />
                   <AlertDialog inactive={false} bidValue={formValues} />
                 </Box>
@@ -123,39 +137,31 @@ export default function ProductPage() {
       </div>
       <container>
         <br></br>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
+        {list.description}
       </container>
       <container>
         <br></br>
         <br></br>
         <MapContainer
           className="leaflet-container"
-          center={[51.505, -0.09]}
-          zoom={9}
+          center={LatLng}
+          zoom={0}
           scrollWheelZoom={false}
         >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[51.505, -0.09]}>
+          <Marker position={LatLng}>
             <Popup>
               <span>
-                A pretty CSS3 popup. <br /> Easily customizable.
+                This is where the product is <br /> located.
               </span>
             </Popup>
           </Marker>
         </MapContainer>
       </container>
-      <container>
+      {list.bids.length!==0?<container>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -165,9 +171,9 @@ export default function ProductPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
+            {list.bids.map((row) => (
               <TableRow
-                key={row.name}
+                key={row.bidder_id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
@@ -179,7 +185,7 @@ export default function ProductPage() {
             ))}
           </TableBody>
         </Table>
-      </container>
+      </container>:null}
     </div>
   );
 }

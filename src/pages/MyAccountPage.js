@@ -4,180 +4,35 @@ import TablePagination from "@mui/material/TablePagination";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-const DUMMY_DATA = [
-  {
-    key: 1,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 2,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 3,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 4,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 5,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 6,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 7,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 8,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 9,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 10,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 11,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 12,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 13,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 14,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 15,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 16,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-  {
-    key: 17,
-    header: "m1",
-    title: "test",
-    subtitle: "Meetupstreet 5, 12345 Meetup City",
-    text: "a paragraph or sth like that tha is big",
-    image:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg",
-  },
-];
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import Button from "@mui/material/Button";
+import { useEffect } from "react";
+import axios from "axios";
+import "../config";
 
 function MyAccountPage() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [state, setState] = React.useState("My Auctions");
+  const [list, setList] = React.useState([]);
+  const [urlType, setUrlType] = React.useState("users-auction/");
+
+
+  function loadAuctions(data) {
+    console.log(data);
+    setList(data);
+  }
 
   const toggleDrawer = (anchor, open) => (event) => {
-    console.log(anchor);
+    if(anchor==='My Auctions'){
+      setUrlType("users-auction/")
+    }
+    else{
+      console.log("win")
+      setUrlType('auction-wins/')
+    }
+
     setState(anchor);
   };
 
@@ -189,30 +44,53 @@ function MyAccountPage() {
     setPage(0);
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/"+urlType, {
+        headers: { token: global.config.user.token },
+      })
+      .then((res) => loadAuctions(res.data))
+      .catch(console.log);
+  }, [urlType]);
+
+  if (!list.length) return(
+    <center>
+      <div>
+        {["My Auctions", "Winning Auctions"].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          </React.Fragment>
+        ))}
+      </div>
+      <br></br>
+      <div>No winning auctions ...</div>
+    </center>
+  );
+
   return (
     <center>
-       <div>
-      {['My Auctions', 'Winning Auctions'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-        </React.Fragment>
-      ))}
-    </div>
+      <div>
+        {["My Auctions", "Winning Auctions"].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          </React.Fragment>
+        ))}
+      </div>
       <div>
         <div>My Account</div>
-        {DUMMY_DATA.slice(
-          page * rowsPerPage,
-          page * rowsPerPage + rowsPerPage
-        ).map((item) => (
-          <EditCard
-            key={item.key}
-            header={item.header}
-            image={item.image}
-            title={item.title}
-            subtitle={item.subtitle}
-            text={item.text}
-          />
-        ))}
+        {list
+          .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+          .map((item) => (
+            <EditCard
+              key={item.id}
+              header={item.buy_price + "€"}
+              image={item.photos[0].URL}
+              title={item.name.slice(0, 50)}
+              categories={item.categories[0].name}
+              description={item.description.slice(0, 50)}
+              id={item.id}
+            />
+          ))}
         <Link style={{ textDecoration: "none" }} to="/addauction">
           <Fab className="fab" color="secondary" aria-label="edit">
             <AddIcon />
@@ -221,7 +99,7 @@ function MyAccountPage() {
       </div>
       <TablePagination
         component="div"
-        count={DUMMY_DATA.length}
+        count={list.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
