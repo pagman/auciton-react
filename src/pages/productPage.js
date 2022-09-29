@@ -112,13 +112,13 @@ export default function ProductPage() {
                   src="https://i.ebayimg.com/images/g/pxcAAOSwis1hwW4V/s-l500.jpg"
                   alt="new"
                 />
-                <Button
-                      disabled={winner==="true"?true:false}
+                {winner===true?<Button
+                      disabled={false}
                       variant="contained"
                       onClick={handleMessage}
                     >
                       Message Seller
-                    </Button>
+                    </Button>:null}
               </center>
             </Grid>
             <Grid item xs={6}>
