@@ -43,6 +43,7 @@ export default function ProductPage() {
   const [open, setOpen] = React.useState(false);
   const [list, setList] = React.useState([]);
   const [LatLng, setLatLng] = React.useState([0.0, 0.0]);
+  const [img, setImg] = React.useState("https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg");
   const [winner, setWinner] = React.useState(false);
   const navigate = useNavigate();
 
@@ -82,6 +83,7 @@ export default function ProductPage() {
           parseFloat(res.data.latitude),
           parseFloat(res.data.longtitude),
         ]);
+        setImg(res.data.photos[0].URL);
       })
       .catch(console.log);
 
@@ -109,7 +111,7 @@ export default function ProductPage() {
                 {" "}
                 <img
                   className="shopImg"
-                  src="https://i.ebayimg.com/images/g/pxcAAOSwis1hwW4V/s-l500.jpg"
+                  src={img}
                   alt="new"
                 />
                 {winner===true?<Button
