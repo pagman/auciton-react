@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import "../config";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   MainContainer,
   ChatContainer,
@@ -40,7 +42,10 @@ const DATA = [
 ];
 
 function Chat() {
+  let { id } = useParams();
   function handleSend(x) {
+    
+
     // Logger user (sender)
     console.log(x);
     DATA.push({key:DATA.length+1, message:x, direction:'outgoing', position:"single"});
@@ -49,6 +54,7 @@ function Chat() {
   const [messageInputValue, setMessageInputValue] = useState("");
   return (
     <div style={{ position: "relative", height: "500px" }}>
+      <div>{id}</div>
       <MainContainer>
         <ChatContainer>
           <MessageList>

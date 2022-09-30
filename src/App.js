@@ -19,6 +19,7 @@ import "./config"
 function App() {
   const [showingAdmin, setShowingAdmin] = React.useState(false);
   const [showing, setShowing] = React.useState(false);
+  const [value, setValue] = React.useState('');
   const cookies = new Cookies();
 
   console.log(cookies.get("token")); // Pacman
@@ -32,14 +33,14 @@ function App() {
 
   return (
     <div>      
-      <SearchAppBar showing={showing} showingAdmin={showingAdmin} setShowing={setShowing}  setShowingAdmin={setShowingAdmin} />
+      <SearchAppBar value={value} setValue={setValue} showing={showing} showingAdmin={showingAdmin} setShowing={setShowing}  setShowingAdmin={setShowingAdmin} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<HomePage value={value} />} />
         <Route path="/account/" element={<AccountPage />} />
         <Route path="/signin" element={<SigninPage setShowing={setShowing}  setShowingAdmin={setShowingAdmin}/>} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/allusers" element={<AllUsersPage />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route exact path="/chat/:id" element={<Chat />} />
         <Route path="/myaccount" element={<MyAccountPage />} />
         <Route path="/addauction" element={<AddAuctionPage />} />
         <Route exact path="/editauction/:id" element={<EditAuctionPage />} />

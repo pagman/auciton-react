@@ -5,7 +5,7 @@ import TablePagination from '@mui/material/TablePagination';
 import axios from "axios";
 import '../config';
 
-function HomePage() {
+function HomePage({value}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [list, setList] = React.useState([]);
@@ -37,6 +37,7 @@ function HomePage() {
   return (
     <center>
       <div>
+      
         <div>{global.config.user.token}</div>
           {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard

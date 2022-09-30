@@ -53,9 +53,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar({showing,showingAdmin, setShowing, setShowingAdmin}) {
+export default function SearchAppBar({
+  value,
+  setValue,
+  showing,
+  showingAdmin,
+  setShowing,
+  setShowingAdmin,
+}) {
   const cookies = new Cookies();
-
   if (cookies.get("role") === "admin") {
     setShowingAdmin(true);
     setShowing(true);
@@ -63,8 +69,11 @@ export default function SearchAppBar({showing,showingAdmin, setShowing, setShowi
   if (cookies.get("role") === "user") {
     setShowing(true);
   }
-  
 
+  const handleChange = (event) => {
+    console.log(event.target.value);
+    setValue(event.target.value)
+};
 
 
   return (
@@ -77,11 +86,11 @@ export default function SearchAppBar({showing,showingAdmin, setShowing, setShowi
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-            <Link style={{ color: "white" ,textDecoration: "none" }} to="/">
+            <Link style={{ color: "white", textDecoration: "none" }} to="/">
               AUCTION SITE
             </Link>
           </Typography>
-          
+
           <Link style={{ textDecoration: "none" }} to="/signin">
             <Button
               variant="text"
@@ -93,45 +102,56 @@ export default function SearchAppBar({showing,showingAdmin, setShowing, setShowi
               Sign in
             </Button>
           </Link>
-          
-          {showingAdmin?<Link style={{ textDecoration: "none", }} to="/allusers">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              AllUsers
-            </Button>
-          </Link>:null}
-          {showing?<Link style={{ textDecoration: "none" }} to="/chat">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              Chat
-            </Button>
-          </Link>:null}
-          {showing?<Link style={{ textDecoration: "none" }} to="/myaccount">
-            <Button
-              variant="text"
-              style={{
-                color: "white",
-                fontSize: "15px",
-              }}
-            >
-              My Account
-            </Button>
-          </Link>:null}
-          <Search>
+
+          {showingAdmin ? (
+            <Link style={{ textDecoration: "none" }} to="/allusers">
+              <Button
+                variant="text"
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                }}
+              >
+                AllUsers
+              </Button>
+            </Link>
+          ) : null}
+          {showing ? (
+            <Link style={{ textDecoration: "none" }} to="/chat/0">
+              <Button
+                variant="text"
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                }}
+              >
+                Chat
+              </Button>
+            </Link>
+          ) : null}
+          {showing ? (
+            <Link style={{ textDecoration: "none" }} to="/myaccount">
+              <Button
+                variant="text"
+                style={{
+                  color: "white",
+                  fontSize: "15px",
+                }}
+              >
+                My Account
+              </Button>
+            </Link>
+          ) : null}
+          <Search
+            onClick={() => {
+              console.log(value);
+            }}
+          >
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon  />
             </SearchIconWrapper>
             <StyledInputBase
+              onChange={handleChange}
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
             />
