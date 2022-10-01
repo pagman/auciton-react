@@ -20,11 +20,10 @@ function HomePage({ value }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedCategory, setSelectedCategory] = React.useState(" ");
 
-
   const handleChange = (event) => {
     console.log(event.target.value);
     setSelectedCategory(event.target.value);
-    if(event.target.value === "all"){
+    if (event.target.value === "all") {
       axios
         .get("http://localhost:8080/auctions/", {
           headers: { token: global.config.user.token },
@@ -35,19 +34,23 @@ function HomePage({ value }) {
         })
         .then((res) => loadAuctions(res.data))
         .catch(console.log);
-
-    }
-    axios
-        .get("http://localhost:8080/Search-auction/?category=%5B%22"+event.target.value+"%22%5D", {
-          headers: { token: global.config.user.token },
-          params: {
-            skip: page * rowsPerPage,
-            limit: page * rowsPerPage + rowsPerPage,
-          },
-        })
+    } else {
+      axios
+        .get(
+          "http://localhost:8080/Search-auction/?category=%5B%22" +
+            event.target.value +
+            "%22%5D",
+          {
+            headers: { token: global.config.user.token },
+            params: {
+              skip: page * rowsPerPage,
+              limit: page * rowsPerPage + rowsPerPage,
+            },
+          }
+        )
         .then((res) => loadAuctions(res.data))
         .catch(console.log);
-
+    }
   };
 
   function loadAuctions(data) {
@@ -95,7 +98,9 @@ function HomePage({ value }) {
 
     axios
       .get("http://localhost:8080/categories/", {})
-      .then((res) => {setCategory(res.data)})
+      .then((res) => {
+        setCategory(res.data);
+      })
       .catch(console.log);
   }, [value]);
 
@@ -107,10 +112,7 @@ function HomePage({ value }) {
         <div>{global.config.user.token}</div>
         <div className="center">
           {" "}
-          <Select
-            label="Select"
-            onChange={handleChange}
-          >
+          <Select label="Select" onChange={handleChange}>
             {category.map((item) => (
               <MenuItem value={item.name}>{item.name}</MenuItem>
             ))}
