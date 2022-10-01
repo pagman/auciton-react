@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "../config";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
 import IconButton from "@mui/material/IconButton";
 import CommentIcon from "@mui/icons-material/Comment";
+import Button from "@mui/material/Button";
 
 import {
   MainContainer,
@@ -24,6 +24,7 @@ import axios from "axios";
 const DATA = [];
 
 function Chat() {
+  const navigate = useNavigate();
   const [messages, setmessages] = React.useState([]);
   const [messageInputValue, setMessageInputValue] = useState("");
   const [active, setActive] = React.useState([]);
@@ -74,7 +75,7 @@ function Chat() {
           console.error("There was an error!", error);
         });
     }
-    if (parseInt(receiver) !== 0 && parseInt(id.split("A")[0]) !== 0) {
+    if (parseInt(receiver) !== 0) {
       axios
         .post(
           "http://localhost:8080/message/",
@@ -147,11 +148,9 @@ function Chat() {
 
           return (
             <ListItem
-              key={value}
+              key={value.id}
               secondaryAction={
-                <IconButton edge="end" aria-label="comments">
-                  <CommentIcon />
-                </IconButton>
+                <IconButton edge="end" aria-label="comments"></IconButton>
               }
               disablePadding
             >
@@ -167,6 +166,23 @@ function Chat() {
                   }
                 />
               </ListItemButton>
+              <Button
+                variant="contained"
+                color="error"
+                onClick={() => {
+                  axios
+                    .delete("http://localhost:8080/delete-message/"+value.id+"/", {
+                      headers: { token: global.config.user.token },
+                    })
+                    .then((res) => {
+                      console.log(res.data);
+                    })
+                    .catch(console.log);
+                    navigate('/chat/0')
+                }}
+              >
+                Delete
+              </Button>
             </ListItem>
           );
         })}

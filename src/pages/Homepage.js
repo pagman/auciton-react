@@ -7,6 +7,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
+import Menu from "@mui/material/Menu";
 import axios from "axios";
 import "../config";
 import { maxWidth } from "@mui/system";
@@ -16,9 +17,24 @@ function HomePage({ value }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [list, setList] = React.useState([]);
   const [category, setCategory] = React.useState([]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [selectedCategory, setSelectedCategory] = React.useState(" ");
+  const open = Boolean(anchorEl);
 
-  const handleCategory = (event) => {
+  const handleChange = (event) => {
     console.log(event.target.value);
+    setSelectedCategory(event.target.value);
+    axios
+        .get("http://localhost:8080/Search-auction/?category=%5B%22"+event.target.value+"%22%5D", {
+          headers: { token: global.config.user.token },
+          params: {
+            skip: page * rowsPerPage,
+            limit: page * rowsPerPage + rowsPerPage,
+          },
+        })
+        .then((res) => loadAuctions(res.data))
+        .catch(console.log);
+
   };
 
   function loadAuctions(data) {
@@ -27,7 +43,6 @@ function HomePage({ value }) {
 
   if (value) {
     console.log(value);
-    
   } else {
     console.log("no value");
   }
@@ -43,16 +58,15 @@ function HomePage({ value }) {
   useEffect(() => {
     if (value) {
       axios
-      .get("http://localhost:8080/Search-auction/", {
-        params: {
-          free_text: value,
-          skip: page * rowsPerPage,
-          limit: page * rowsPerPage + rowsPerPage,
-        },
-      })
-      .then((res) => loadAuctions(res.data))
-      .catch(console.log);
-      
+        .get("http://localhost:8080/Search-auction/", {
+          params: {
+            free_text: value,
+            skip: page * rowsPerPage,
+            limit: page * rowsPerPage + rowsPerPage,
+          },
+        })
+        .then((res) => loadAuctions(res.data))
+        .catch(console.log);
     } else {
       axios
         .get("http://localhost:8080/auctions/", {
@@ -68,7 +82,7 @@ function HomePage({ value }) {
 
     axios
       .get("http://localhost:8080/categories/", {})
-      .then((res) => setCategory(res.data))
+      .then((res) => {setCategory(res.data)})
       .catch(console.log);
   }, [value]);
 
@@ -80,22 +94,14 @@ function HomePage({ value }) {
         <div>{global.config.user.token}</div>
         <div className="center">
           {" "}
-          <Box sx={{ minWidth: 120, maxWidth: 200 }}>
-            <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">category</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={category.name}
-                label="Category"
-                onChange={handleCategory}
-              >
-                {category.map((item) => (
-                  <MenuItem value={item.name}>{item.name}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Box>
+          <Select
+            label="Select"
+            onChange={handleChange}
+          >
+            {category.map((item) => (
+              <MenuItem value={item.name}>{item.name}</MenuItem>
+            ))}
+          </Select>
         </div>
         {list
           .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
