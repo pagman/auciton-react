@@ -92,8 +92,14 @@ function SigninPage({ setShowing, setShowingAdmin }) {
         console.log(response.data.role, response.data.token);
         global.config.user.token = response.data.token;
         global.config.user.role = response.data.role;
-        cookies.set("token", response.data.token, { path: "/", expires: nextYear });
-        cookies.set("role", response.data.role, { path: "/", expires: nextYear });
+        cookies.set("token", response.data.token, {
+          path: "/",
+          expires: nextYear,
+        });
+        cookies.set("role", response.data.role, {
+          path: "/",
+          expires: nextYear,
+        });
         navigate("/");
         if (response.data.role === "admin") {
           setShowingAdmin(true);
@@ -248,6 +254,18 @@ function SigninPage({ setShowing, setShowingAdmin }) {
             <Button variant="outlined" type="submit">
               Log in
             </Button>
+            <Button
+              variant="outlined"
+              color="error"
+              onClick={() => {
+                console.log('press')
+                cookies.remove("token");
+                cookies.remove("role");
+              }}
+            >
+              Log out
+            </Button>
+
             {logInError ? <Alert severity="error">Log in Error</Alert> : null}
           </div>
         </Box>
