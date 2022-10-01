@@ -66,7 +66,7 @@ export default function SearchAppBar({
     setShowingAdmin(true);
     setShowing(true);
   }
-  if (cookies.get("role") === "user") {
+  if (cookies.get("role") === "User") {
     setShowing(true);
   }
 

@@ -1,7 +1,17 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 import "../config";
 import { useNavigate, useParams } from "react-router-dom";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import CommentIcon from "@mui/icons-material/Comment";
+
 import {
   MainContainer,
   ChatContainer,
@@ -9,70 +19,200 @@ import {
   Message,
   MessageInput,
 } from "@chatscope/chat-ui-kit-react";
+import axios from "axios";
 
-const DATA = [
-  {
-    key: 1,
-    message: "Hello there",
-    direction: "outgoing",
-    position: "single",
-  },
-  {
-    key: 2,
-    message: "Hi",
-    direction: "incoming",
-    position: "single",
-  },{
-    key: 3,
-    message: "Hello there",
-    direction: "outgoing",
-    position: "single",
-  },
-  {
-    key: 4,
-    message: "Hi",
-    direction: "incoming",
-    position: "single",
-  },{
-    key: 5,
-    message: "Hello there",
-    direction: "outgoing",
-    position: "single",
-  },
-];
+const DATA = [];
 
 function Chat() {
+  const [messages, setmessages] = React.useState([]);
+  const [messageInputValue, setMessageInputValue] = useState("");
+  const [active, setActive] = React.useState([]);
+  const [receiver, setReceiver] = useState("");
+
+  const handleToggle = (value) => () => {
+    setReceiver(value);
+    console.log(value);
+  };
+
+  function loadUnread(data) {
+    setmessages(data);
+    console.log(messages);
+  }
+
+  function loadActive(data) {
+    setActive(data);
+    console.log(active);
+  }
+
   let { id } = useParams();
   function handleSend(x) {
-    
-
     // Logger user (sender)
     console.log(x);
-    DATA.push({key:DATA.length+1, message:x, direction:'outgoing', position:"single"});
+    DATA.push({
+      key: DATA.length + 1,
+      message: x,
+      direction: "outgoing",
+      position: "single",
+    });
     setMessageInputValue("");
+    if (parseInt(id.split("A")[0]) !== 0) {
+      axios
+        .post(
+          "http://localhost:8080/message/",
+          {
+            receiver_id: parseInt(id.split("A")[0]),
+            message: x,
+            auction_id: 1,
+          },
+          {
+            headers: { token: global.config.user.token },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    }
+    if (parseInt(receiver) === 0 && parseInt(id.split("A")[0]) !== 0) {
+      axios
+        .post(
+          "http://localhost:8080/message/",
+          {
+            receiver_id: parseInt(receiver),
+            message: x,
+            auction_id: 1,
+          },
+          {
+            headers: { token: global.config.user.token },
+          }
+        )
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error("There was an error!", error);
+        });
+    }
   }
-  const [messageInputValue, setMessageInputValue] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/unread-messages/", {
+        headers: { token: global.config.user.token },
+      })
+      .then((res) => {
+        loadUnread(res.data);
+      })
+      .catch(console.log);
+
+      axios
+      .get("http://localhost:8080/active-conversations/", {
+        headers: { token: global.config.user.token },
+      })
+      .then((res) => {
+        loadActive(res.data);
+      })
+      .catch(console.log);
+
+  },[]);
+
+  if (messages === []) return <div>Loading...</div>;
+  if (active === []) return <div>Loading...</div>;
+
+
   return (
     <div style={{ position: "relative", height: "500px" }}>
-      <div>{id}</div>
+      <div>seller id {id.split("A")[0]}</div>
+      <div>auction id {id.split("A")[1]}</div>
+      <div>receiver id {receiver}</div>
       <MainContainer>
         <ChatContainer>
           <MessageList>
             {DATA.map((item) => (
-              <Message
-                model={item}
-              />
+              <Message model={item} />
             ))}
           </MessageList>
           <MessageInput
             value={messageInputValue}
             onChange={(val) => setMessageInputValue(val)}
             onSend={() => handleSend(messageInputValue)}
-            placeholder="Type message here"
           />
         </ChatContainer>
       </MainContainer>
+      <div> You have {messages.length} unread messages</div>
+
+      <List
+        sx={{ width: "100%", maxWidth: "100%", bgcolor: "background.paper" }}
+      >
+        {messages.map((value) => {
+          const labelId = `checkbox-list-label-${value.id}`;
+
+          return (
+            <ListItem
+              key={value}
+              secondaryAction={
+                <IconButton edge="end" aria-label="comments">
+                  <CommentIcon />
+                </IconButton>
+              }
+              disablePadding
+            >
+              <ListItemButton
+                role={undefined}
+                onClick={handleToggle(value.sender_id)}
+                dense
+              >
+                <ListItemText
+                  id={labelId}
+                  primary={
+                    "User: " + value.sender_id + " says: " + value.message
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+
+      <div> Active Conversations {active.length} </div>
+
+      <List
+        sx={{ width: "100%", maxWidth: "100%", bgcolor: "background.paper" }}
+      >
+        {active.map((value) => {
+          const labelId = `checkbox-list-label-${value.id}`;
+
+          return (
+            <ListItem
+              key={value}
+              secondaryAction={
+                <IconButton edge="end" aria-label="comments">
+                  <CommentIcon />
+                </IconButton>
+              }
+              disablePadding
+            >
+              <ListItemButton
+                role={undefined}
+                onClick={handleToggle(value.id)}
+                dense
+              >
+                <ListItemText
+                  id={labelId}
+                  primary={
+                    "User: " + value.username
+                  }
+                />
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+
     </div>
+    
   );
 }
 

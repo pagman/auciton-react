@@ -64,6 +64,12 @@ function MyAccountPage() {
       </div>
       <br></br>
       <div>No winning auctions ...</div>
+      <br></br>
+      <Link style={{ textDecoration: "none" }} to="/addauction">
+          <Fab className="fab" color="secondary" aria-label="edit">
+            <AddIcon />
+          </Fab>
+        </Link>
     </center>
   );
 

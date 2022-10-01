@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import Alert from "@mui/material/Alert";
 import "../config";
 
-
 const defaultValues = {
   img: "",
   name: "",
@@ -16,6 +15,8 @@ const defaultValues = {
   description: "",
   startbid: "",
   location: "",
+  longtitude: "",
+  latitude: "",
   country: "",
   starts: "",
   ends: "",
@@ -26,6 +27,8 @@ function EditAuctionPage() {
   const [formValues, setFormValues] = useState(defaultValues);
   const [list, setList] = React.useState();
   const [Error, setError] = React.useState(false);
+  const [requiredError, setRequiredError] = React.useState(false);
+  const [successMessage, setSuccessMessage] = React.useState(false);
 
   function loadAuctions(data) {
     setList(data);
@@ -39,12 +42,52 @@ function EditAuctionPage() {
       ...formValues,
       [name]: value,
     });
-
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event);
     console.log(formValues);
+    axios
+      .post(
+        "http://localhost:8080/modify-auction/",
+        {
+          id: id,
+          name: (formValues.name===""?list.name:formValues.name),
+          buy_price: (formValues.startbid===""?list.buy_price:formValues.startbid),
+          location: (formValues.location===""?list.location:formValues.location),
+          country: (formValues.country===""?list.country:formValues.country),
+          start: (formValues.starts===""?list.start:formValues.starts),
+          ends: (formValues.ends===""?list.ends:formValues.ends),
+          description: (formValues.description===""?list.description:formValues.description),
+          longtitude: (formValues.longtitude===""?list.longtitude:formValues.longtitude),
+          latitude: (formValues.latitude===""?list.latitude:formValues.latitude),
+          categories: ["string"],
+          photos: (formValues.img===""?list.photos:formValues.img.split(" "))
+          // "id": 2,
+          // "name": 
+          // "buy_price": (formValues.startbid===""?list.buy_price:formValues.startbid),
+          // "location": (formValues.location===""?list.location:formValues.location),
+          // "country": (formValues.country===""?list.country:formValues.country),
+          // "start": (formValues.starts===""?list.start:formValues.starts),
+          // "ends": (formValues.ends===""?list.ends:formValues.ends),
+          // "description": (formValues.description===""?list.description:formValues.description),
+          // "longtitude": (formValues.longtitude===""?list.longtitude:formValues.longtitude),
+          // "latitude": (formValues.latitude===""?list.latitude:formValues.latitude),
+          // "categories": (formValues.category===""?list.categories:formValues.category.split(" ")),
+          // "photos": (formValues.img===""?list.photos:formValues.img.split(" "))
+        },
+        {
+          headers: { token: global.config.user.token },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setSuccessMessage(true);
+      })
+      .catch((error) => {
+        setRequiredError(true);
+        console.error("There was an error!", error);
+      });
   };
 
   useEffect(() => {
@@ -133,6 +176,22 @@ function EditAuctionPage() {
             />
             <TextField
               required
+              id="latitude"
+              name="latitude"
+              type="text"
+              onChange={handleInputChange}
+              defaultValue={list.latitude}
+            />
+            <TextField
+              required
+              id="longtitude"
+              name="longtitude"
+              type="text"
+              onChange={handleInputChange}
+              defaultValue={list.longtitude}
+            />
+            <TextField
+              required
               id="starts"
               name="starts"
               label="Start Time"
@@ -160,7 +219,16 @@ function EditAuctionPage() {
             <Button disabled={false} variant="outlined" type="submit">
               Submit
             </Button>
+
             {Error ? <Alert severity="error">Unable to change</Alert> : null}
+            {requiredError ? (
+              <Alert severity="error">There was an error</Alert>
+            ) : null}
+            {successMessage ? (
+              <Alert severity="success">
+                This is a success! — auction added!
+              </Alert>
+            ) : null}
           </center>
         </Box>
       </div>

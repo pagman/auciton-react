@@ -25,7 +25,7 @@ function HomePage({value}) {
   useEffect(() => {
     axios
       .get('http://localhost:8080/auctions/' ,{
-        headers: { token: "cdd8828a-1b25-447d-8f8c-98fa44986add" },
+        headers: { token: "93a078aa-e967-46c0-a312-c61d92adff88" },
         arams: { skip: page * rowsPerPage ,limit: page * rowsPerPage + rowsPerPage }
       })
       .then((res) => loadAuctions(res.data))

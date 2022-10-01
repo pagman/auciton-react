@@ -34,7 +34,7 @@ const rows = [
 export default function ProductPage() {
 
   const handleMessage = () => {
-    navigate('/chat/22');
+    navigate('/chat/'+list.seller_id+'A'+list.id);
   };
 
 
