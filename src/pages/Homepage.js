@@ -2,13 +2,25 @@ import * as React from "react";
 import { useEffect } from "react";
 import BasicCard from "../components/Card";
 import TablePagination from '@mui/material/TablePagination';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select'
+import Box from '@mui/material/Box';
 import axios from "axios";
 import '../config';
+import { maxWidth } from "@mui/system";
 
 function HomePage({value}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [list, setList] = React.useState([]);
+  const [category, setCategory] = React.useState('');
+
+  const handleCategory = (event) => {
+    console.log(event.target.value)
+    setCategory(event.target.value);
+  };
 
   function loadAuctions(data) {
     setList(data);
@@ -39,6 +51,23 @@ function HomePage({value}) {
       <div>
       
         <div>{global.config.user.token}</div>
+        <div className="center"> <Box sx={{ minWidth: 120 , maxWidth: 200 }}>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={category}
+          label="Category"
+          onChange={handleCategory}
+        >
+          <MenuItem value={'Ten'}>Ten</MenuItem>
+          <MenuItem value={'Twenty'}>Twenty</MenuItem>
+          <MenuItem value={'Thirty'}>Thirty</MenuItem>
+        </Select>
+      </FormControl>
+    </Box>
+    </div>
           {list.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((item) => (
             <BasicCard
               key={item.id}
