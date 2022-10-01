@@ -9,6 +9,7 @@ import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import { useEffect } from "react";
 import axios from "axios";
+import DownloadIcon from "@mui/icons-material/Download";
 import "../config";
 
 function MyAccountPage() {
@@ -18,19 +19,17 @@ function MyAccountPage() {
   const [list, setList] = React.useState([]);
   const [urlType, setUrlType] = React.useState("users-auction/");
 
-
   function loadAuctions(data) {
     console.log(data);
     setList(data);
   }
 
   const toggleDrawer = (anchor, open) => (event) => {
-    if(anchor==='My Auctions'){
-      setUrlType("users-auction/")
-    }
-    else{
-      console.log("win")
-      setUrlType('auction-wins/')
+    if (anchor === "My Auctions") {
+      setUrlType("users-auction/");
+    } else {
+      console.log("win");
+      setUrlType("auction-wins/");
     }
 
     setState(anchor);
@@ -46,32 +45,33 @@ function MyAccountPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/"+urlType, {
+      .get("http://localhost:8080/" + urlType, {
         headers: { token: global.config.user.token },
       })
       .then((res) => loadAuctions(res.data))
       .catch(console.log);
   }, [urlType]);
 
-  if (!list.length) return(
-    <center>
-      <div>
-        {["My Auctions", "Winning Auctions"].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          </React.Fragment>
-        ))}
-      </div>
-      <br></br>
-      <div>No winning auctions ...</div>
-      <br></br>
-      <Link style={{ textDecoration: "none" }} to="/addauction">
+  if (!list.length)
+    return (
+      <center>
+        <div>
+          {["My Auctions", "Winning Auctions"].map((anchor) => (
+            <React.Fragment key={anchor}>
+              <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+            </React.Fragment>
+          ))}
+        </div>
+        <br></br>
+        <div>No winning auctions ...</div>
+        <br></br>
+        <Link style={{ textDecoration: "none" }} to="/addauction">
           <Fab className="fab" color="secondary" aria-label="edit">
             <AddIcon />
           </Fab>
         </Link>
-    </center>
-  );
+      </center>
+    );
 
   return (
     <center>
@@ -102,6 +102,17 @@ function MyAccountPage() {
             <AddIcon />
           </Fab>
         </Link>
+        {'  '}
+        <Fab
+          className="fab"
+          color="primary"
+          aria-label="download"
+          onClick={() => {
+            alert("clicked");
+          }}
+        >
+          <DownloadIcon />
+        </Fab>
       </div>
       <TablePagination
         component="div"

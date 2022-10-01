@@ -254,6 +254,7 @@ function SigninPage({ setShowing, setShowingAdmin }) {
             <Button variant="outlined" type="submit">
               Log in
             </Button>
+            
             <Button
               variant="outlined"
               color="error"
@@ -261,6 +262,8 @@ function SigninPage({ setShowing, setShowingAdmin }) {
                 console.log('press')
                 cookies.remove("token");
                 cookies.remove("role");
+                navigate('/')
+                window.location.reload(false)
               }}
             >
               Log out
