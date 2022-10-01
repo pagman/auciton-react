@@ -32,7 +32,7 @@ function EditAuctionPage() {
 
   function loadAuctions(data) {
     setList(data);
-    console.log(list);
+    console.log(data);
     console.log("setting...");
   }
 
@@ -61,8 +61,8 @@ function EditAuctionPage() {
           description: (formValues.description===""?list.description:formValues.description),
           longtitude: (formValues.longtitude===""?list.longtitude:formValues.longtitude),
           latitude: (formValues.latitude===""?list.latitude:formValues.latitude),
-          categories: ["string"],
-          photos: (formValues.img===""?list.photos:formValues.img.split(" "))
+          categories: (formValues.img===""?[list.categories[0].name]:formValues.img.split(" ")),
+          photos: (formValues.img===""?[list.photos[0].URL]:formValues.img.split(" ")),
           // "id": 2,
           // "name": 
           // "buy_price": (formValues.startbid===""?list.buy_price:formValues.startbid),
