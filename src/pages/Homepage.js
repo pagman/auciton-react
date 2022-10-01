@@ -19,11 +19,24 @@ function HomePage({ value }) {
   const [category, setCategory] = React.useState([]);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [selectedCategory, setSelectedCategory] = React.useState(" ");
-  const open = Boolean(anchorEl);
+
 
   const handleChange = (event) => {
     console.log(event.target.value);
     setSelectedCategory(event.target.value);
+    if(event.target.value === "all"){
+      axios
+        .get("http://localhost:8080/auctions/", {
+          headers: { token: global.config.user.token },
+          params: {
+            skip: page * rowsPerPage,
+            limit: page * rowsPerPage + rowsPerPage,
+          },
+        })
+        .then((res) => loadAuctions(res.data))
+        .catch(console.log);
+
+    }
     axios
         .get("http://localhost:8080/Search-auction/?category=%5B%22"+event.target.value+"%22%5D", {
           headers: { token: global.config.user.token },
@@ -101,6 +114,7 @@ function HomePage({ value }) {
             {category.map((item) => (
               <MenuItem value={item.name}>{item.name}</MenuItem>
             ))}
+            <MenuItem value="all">All</MenuItem>
           </Select>
         </div>
         {list
