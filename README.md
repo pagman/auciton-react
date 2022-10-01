@@ -1,8 +1,8 @@
 # Dependances and versions
 
-## react version 18.2.0
+### react version 18.2.0
 
-## npm version 8.11.0
+### npm version 8.11.0
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
