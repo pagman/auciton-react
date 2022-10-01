@@ -1,10 +1,17 @@
-# Getting Started with Create React App
+# Dependances and versions
+
+## react version 18.2.0
+
+## npm version 8.11.0
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm init`
 
 ### `npm start`
 
