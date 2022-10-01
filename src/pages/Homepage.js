@@ -25,6 +25,12 @@ function HomePage({value}) {
   function loadAuctions(data) {
     setList(data);
   }
+  if(value){
+  console.log(value);
+  }
+  else{
+    console.log("no value")
+  }
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -38,11 +44,11 @@ function HomePage({value}) {
     axios
       .get('http://localhost:8080/auctions/' ,{
         headers: { token: "93a078aa-e967-46c0-a312-c61d92adff88" },
-        arams: { skip: page * rowsPerPage ,limit: page * rowsPerPage + rowsPerPage }
+        params: { skip: page * rowsPerPage ,limit: page * rowsPerPage + rowsPerPage }
       })
       .then((res) => loadAuctions(res.data))
       .catch(console.log);
-  });
+  },[]);
 
   if (!list.length) return <div>Loading...</div>
 
@@ -83,7 +89,7 @@ function HomePage({value}) {
       </div>
       <TablePagination
       component="div"
-      count={list[0].id}
+      count={parseInt(list[0].id)}
       page={page}
       onPageChange={handleChangePage}
       rowsPerPage={rowsPerPage}
