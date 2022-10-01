@@ -32,9 +32,34 @@ const rows = [
 ];
 
 export default function ProductPage() {
-
   const handleMessage = () => {
-    navigate('/chat/'+list.seller_id+'A'+list.id);
+    navigate("/chat/" + list.seller_id + "A" + list.id);
+  };
+
+  const handleDownload = () => {
+    console.log('pressed')
+    axios.get("http://localhost:8080/admin-get-auction/" + id + "/", {
+      headers: { token: global.config.user.token, 'media-type': 'application/xml' },      
+    })
+    .then((response) => response.data)
+  .then((blob) => {
+    // Create blob link to download
+    const url = window.URL.createObjectURL(
+      new Blob([blob]),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+      'download',
+      list.name+".xml"
+    );
+    // Append to html link element page
+    document.body.appendChild(link);
+    // Start download
+    link.click();
+    // Clean up and remove the link
+    link.parentNode.removeChild(link);
+  });
   };
 
 
@@ -43,7 +68,9 @@ export default function ProductPage() {
   const [open, setOpen] = React.useState(false);
   const [list, setList] = React.useState([]);
   const [LatLng, setLatLng] = React.useState([0.0, 0.0]);
-  const [img, setImg] = React.useState("https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg");
+  const [img, setImg] = React.useState(
+    "https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg"
+  );
   const [winner, setWinner] = React.useState(false);
   const [currentBid, setCurrentBid] = React.useState(0);
 
@@ -53,7 +80,6 @@ export default function ProductPage() {
     setList(data);
     console.log(list);
     console.log(list.bids);
-    
   }
 
   const handleInputChange = (e) => {
@@ -88,8 +114,8 @@ export default function ProductPage() {
         ]);
 
         setImg(res.data.photos[0].URL);
-        console.log(res.data.bids[res.data.bids.length-1].amount)
-        setCurrentBid(res.data.bids[res.data.bids.length-1].amount);
+        console.log(res.data.bids[res.data.bids.length - 1].amount);
+        setCurrentBid(res.data.bids[res.data.bids.length - 1].amount);
       })
       .catch(console.log);
 
@@ -100,7 +126,7 @@ export default function ProductPage() {
       .then((res) => {
         console.log(res.data);
         setWinner(res.data.is_auction_winner);
-        console.log(winner)
+        console.log(winner);
       })
       .catch(console.log);
   }, [open]);
@@ -115,18 +141,34 @@ export default function ProductPage() {
             <Grid item xs={6}>
               <center>
                 {" "}
-                <img
-                  className="shopImg"
-                  src={img}
-                  alt="new"
-                />
-                {winner===true?<Button
+                <img className="shopImg" src={img} alt="new" />
+                <div>
+                  <Grid container spacing={2}>
+                    <Grid item xs={4}>
+                    <Button
+                    disabled={false}
+                    variant="contained"
+                    color="error"
+                    onClick={handleDownload}
+                  >
+                    Download
+                  </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                    {winner === true ? (
+                    <Button
                       disabled={false}
                       variant="contained"
                       onClick={handleMessage}
                     >
                       Message Seller
-                    </Button>:null}
+                    </Button>
+                  ) : null}
+                    </Grid>
+                  </Grid>
+                  
+                  
+                </div>
               </center>
             </Grid>
             <Grid item xs={6}>
@@ -147,7 +189,7 @@ export default function ProductPage() {
                     name="bid"
                     type="number"
                     onChange={handleInputChange}
-                    label={currentBid} 
+                    label={currentBid}
                   />
                   <AlertDialog
                     inactive={false}
@@ -183,7 +225,7 @@ export default function ProductPage() {
       </container>
       <container>
         <br></br>
-        
+
         <br></br>
         <MapContainer
           className="leaflet-container"
@@ -216,7 +258,6 @@ export default function ProductPage() {
           <TableBody>
             {list.bids &&
               list.bids.map((row) => (
-                
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}

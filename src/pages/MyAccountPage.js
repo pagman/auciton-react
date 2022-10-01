@@ -102,17 +102,7 @@ function MyAccountPage() {
             <AddIcon />
           </Fab>
         </Link>
-        {'  '}
-        <Fab
-          className="fab"
-          color="primary"
-          aria-label="download"
-          onClick={() => {
-            alert("clicked");
-          }}
-        >
-          <DownloadIcon />
-        </Fab>
+        
       </div>
       <TablePagination
         component="div"

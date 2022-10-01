@@ -1,5 +1,6 @@
 import "./App.css";
 import * as React from "react";
+import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/Homepage";
 import SigninPage from "./pages/Signin";
@@ -27,6 +28,11 @@ function App() {
 
   global.config.user.token = cookies.get("token");
   global.config.user.role = cookies.get("role");
+
+  useEffect(() => {
+    document.title = "Auction site"
+  }, [])
+
 
   
 
