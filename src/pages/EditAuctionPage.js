@@ -61,7 +61,7 @@ function EditAuctionPage() {
           description: (formValues.description===""?list.description:formValues.description),
           longtitude: (formValues.longtitude===""?list.longtitude:formValues.longtitude),
           latitude: (formValues.latitude===""?list.latitude:formValues.latitude),
-          categories: (formValues.img===""?[list.categories[0].name]:formValues.img.split(" ")),
+          categories: (formValues.category===""?[list.categories[0].name]:formValues.category.split(" ")),
           photos: (formValues.img===""?[list.photos[0].URL]:formValues.img.split(" ")),
           // "id": 2,
           // "name": 
