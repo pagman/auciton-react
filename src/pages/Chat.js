@@ -62,7 +62,6 @@ function Chat() {
           {
             receiver_id: parseInt(id.split("A")[0]),
             message: x,
-            auction_id: 1,
           },
           {
             headers: { token: global.config.user.token },
@@ -75,14 +74,13 @@ function Chat() {
           console.error("There was an error!", error);
         });
     }
-    if (parseInt(receiver) === 0 && parseInt(id.split("A")[0]) !== 0) {
+    if (parseInt(receiver) !== 0 && parseInt(id.split("A")[0]) !== 0) {
       axios
         .post(
           "http://localhost:8080/message/",
           {
             receiver_id: parseInt(receiver),
             message: x,
-            auction_id: 1,
           },
           {
             headers: { token: global.config.user.token },
@@ -107,7 +105,7 @@ function Chat() {
       })
       .catch(console.log);
 
-      axios
+    axios
       .get("http://localhost:8080/active-conversations/", {
         headers: { token: global.config.user.token },
       })
@@ -115,12 +113,10 @@ function Chat() {
         loadActive(res.data);
       })
       .catch(console.log);
-
-  },[]);
+  }, []);
 
   if (messages === []) return <div>Loading...</div>;
   if (active === []) return <div>Loading...</div>;
-
 
   return (
     <div style={{ position: "relative", height: "500px" }}>
@@ -201,18 +197,14 @@ function Chat() {
               >
                 <ListItemText
                   id={labelId}
-                  primary={
-                    "User: " + value.username
-                  }
+                  primary={"User: " + value.username}
                 />
               </ListItemButton>
             </ListItem>
           );
         })}
       </List>
-
     </div>
-    
   );
 }
 
