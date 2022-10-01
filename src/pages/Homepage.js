@@ -15,18 +15,19 @@ function HomePage({ value }) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [list, setList] = React.useState([]);
-  const [category, setCategory] = React.useState(["Laptop", "Electronics"]);
+  const [category, setCategory] = React.useState([]);
 
   const handleCategory = (event) => {
     console.log(event.target.value);
-    setCategory(event.target.value);
   };
 
   function loadAuctions(data) {
     setList(data);
   }
+
   if (value) {
     console.log(value);
+    
   } else {
     console.log("no value");
   }
@@ -40,17 +41,36 @@ function HomePage({ value }) {
   };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:8080/auctions/", {
-        headers: { token: "93a078aa-e967-46c0-a312-c61d92adff88" },
+    if (value) {
+      axios
+      .get("http://localhost:8080/Search-auction/", {
         params: {
+          free_text: value,
           skip: page * rowsPerPage,
           limit: page * rowsPerPage + rowsPerPage,
         },
       })
       .then((res) => loadAuctions(res.data))
       .catch(console.log);
-  }, []);
+      
+    } else {
+      axios
+        .get("http://localhost:8080/auctions/", {
+          headers: { token: global.config.user.token },
+          params: {
+            skip: page * rowsPerPage,
+            limit: page * rowsPerPage + rowsPerPage,
+          },
+        })
+        .then((res) => loadAuctions(res.data))
+        .catch(console.log);
+    }
+
+    axios
+      .get("http://localhost:8080/categories/", {})
+      .then((res) => setCategory(res.data))
+      .catch(console.log);
+  }, [value]);
 
   if (!list.length) return <div>Loading...</div>;
 
@@ -66,12 +86,12 @@ function HomePage({ value }) {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={category}
+                value={category.name}
                 label="Category"
                 onChange={handleCategory}
               >
                 {category.map((item) => (
-                  <MenuItem value={item}>{item}</MenuItem>
+                  <MenuItem value={item.name}>{item.name}</MenuItem>
                 ))}
               </Select>
             </FormControl>
