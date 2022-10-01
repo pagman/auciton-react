@@ -45,12 +45,15 @@ export default function ProductPage() {
   const [LatLng, setLatLng] = React.useState([0.0, 0.0]);
   const [img, setImg] = React.useState("https://upload.wikimedia.org/wikipedia/commons/3/3f/Placeholder_view_vector.svg");
   const [winner, setWinner] = React.useState(false);
+  const [currentBid, setCurrentBid] = React.useState(0);
+
   const navigate = useNavigate();
 
   function loadAuctions(data) {
     setList(data);
     console.log(list);
     console.log(list.bids);
+    
   }
 
   const handleInputChange = (e) => {
@@ -83,7 +86,10 @@ export default function ProductPage() {
           parseFloat(res.data.latitude),
           parseFloat(res.data.longtitude),
         ]);
+
         setImg(res.data.photos[0].URL);
+        console.log(res.data.bids[res.data.bids.length-1].amount)
+        setCurrentBid(res.data.bids[res.data.bids.length-1].amount);
       })
       .catch(console.log);
 
@@ -141,7 +147,7 @@ export default function ProductPage() {
                     name="bid"
                     type="number"
                     onChange={handleInputChange}
-                    label={list.currently}
+                    label={currentBid} 
                   />
                   <AlertDialog
                     inactive={false}
@@ -161,9 +167,9 @@ export default function ProductPage() {
                   autoComplete="off"
                 >
                   <Typography variant="h2" component="h2">
-                    {7} €
+                    {list.buy_price} €
                   </Typography>
-                  <BuyNowDialog inactive={false} bidValue={7} />
+                  <BuyNowDialog inactive={false} bidValue={list.buy_price} />
                 </Box>
               </div>
               <div className="center"></div>
@@ -210,6 +216,7 @@ export default function ProductPage() {
           <TableBody>
             {list.bids &&
               list.bids.map((row) => (
+                
                 <TableRow
                   key={row.id}
                   sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
