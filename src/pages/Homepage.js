@@ -112,7 +112,7 @@ function HomePage({ value }) {
         <div>{global.config.user.token}</div>
         <div className="center">
           {" "}
-          <Select label="Select" onChange={handleChange}>
+          <Select  defaultValue="all" label="Age" onChange={handleChange}>
             {category.map((item) => (
               <MenuItem value={item.name}>{item.name}</MenuItem>
             ))}
